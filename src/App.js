@@ -1,9 +1,10 @@
 import './App.css';
+import CharacterSheet from './components/Sheet';
 
 function App() {
   return (
     <div className="App">
-      fghfghfd
+      <CharacterSheet/>
     </div>
   );
 }
