@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SpellCard.css"; // Файл стилей, который мы создадим отдельно
 
 const App = () => {
@@ -46,6 +46,19 @@ const App = () => {
     }
   ];
 
+  const [filter, setFilter] = useState({ level: null, category: null, spellClass: null });
+
+  const handleFilterChange = (key, value) => {
+    setFilter((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const filteredSpells = spellData.filter(
+    (spell) =>
+      (filter.level === null || spell.level === filter.level) &&
+      (filter.category === null || spell.category === filter.category) &&
+      (filter.spellClass === null || spell.spellClass === filter.spellClass)
+  );
+
   const SpellCard = ({
     title,
     level,
@@ -66,47 +79,91 @@ const App = () => {
             {level} уровень - {category}
           </p>
         </div>
-
+  
         <div className="spell-card__details">
-          <div>
-            <strong>Время накладывания:</strong>
-            <span>{castingTime}</span>
-          </div>
-          <div>
-            <strong>Дистанция:</strong>
-            <span>{range}</span>
-          </div>
-          <div>
-            <strong>Компоненты:</strong>
-            <span>{components}</span>
-          </div>
-          <div>
-            <strong>Длительность:</strong>
-            <span>{duration}</span>
-          </div>
+          <table className="spell-card__table">
+            <tbody>
+              <tr>
+                <td><strong>Время накладывания:</strong></td>
+                <td>{castingTime}</td>
+              </tr>
+              <tr>
+                <td><strong>Дистанция:</strong></td>
+                <td>{range}</td>
+              </tr>
+              <tr>
+                <td><strong>Компоненты:</strong></td>
+                <td>{components}</td>
+              </tr>
+              <tr>
+                <td><strong>Длительность:</strong></td>
+                <td>{duration}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
+  
         <div className="spell-card__description">
           <p>{description}</p>
         </div>
-
+  
         {higherLevelDescription && (
           <div className="spell-card__higher-level">
             <h3>На более высоком уровне</h3>
             <p>{higherLevelDescription}</p>
           </div>
         )}
-
+  
         <div className="spell-card__footer">
           <p>{spellClass} - Базовые заклинания</p>
         </div>
       </div>
     );
   };
-
   return (
     <div>
-      {spellData.map((spell, index) => (
+      <div className="filters">
+        <label>
+          Уровень:
+          <select
+            onChange={(e) =>
+              handleFilterChange("level", e.target.value ? parseInt(e.target.value) : null)
+            }
+          >
+            <option value="">Все</option>
+            <option value="1">1</option>
+            <option value="3">3</option>
+          </select>
+        </label>
+
+        <label>
+          Категория:
+          <select
+            onChange={(e) =>
+              handleFilterChange("category", e.target.value || null)
+            }
+          >
+            <option value="">Все</option>
+            <option value="Воплощение">Воплощение</option>
+            <option value="Заклинание реакции">Заклинание реакции</option>
+          </select>
+        </label>
+
+        <label>
+          Класс заклинания:
+          <select
+            onChange={(e) =>
+              handleFilterChange("spellClass", e.target.value || null)
+            }
+          >
+            <option value="">Все</option>
+            <option value="Паладин">Паладин</option>
+            <option value="Маг">Маг</option>
+          </select>
+        </label>
+      </div>
+
+      {filteredSpells.map((spell, index) => (
         <SpellCard
           key={index}
           title={spell.title}
