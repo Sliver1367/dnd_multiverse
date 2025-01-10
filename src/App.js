@@ -1,13 +1,19 @@
-import './App.css';
-import CharacterSheet from './components/Sheet';
-import SpellCard from './components/SpellCard/SpellCard';
+import React, { useState } from "react";
+import StartScreen from "./components/StartScreen/StartScreen";
+import SpellDatabase from "./components/SpellDatabase/SpellDatabase";
+import CharacterCreator from "./components/CharacterCreator/CharacterCreator";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <CharacterSheet/>
-      <SpellCard/>
-    </div>
-  );
-}
+const App = () => {
+  const [screen, setScreen] = useState(null); // null означает стартовый экран
+
+  const renderScreen = () => {
+    if (screen === "spells") return <SpellDatabase />;
+    if (screen === "character") return <CharacterCreator />;
+    return <StartScreen onOptionSelect={setScreen} />;
+  };
+
+  return <div className="app-container">{renderScreen()}</div>;
+};
+
 export default App;
