@@ -19,3 +19,43 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #333;
+  color: white;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background: #f4f4f4;
+}
+
+.worksreen {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background: #333;
+  color: white;
+}
