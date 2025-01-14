@@ -1,0 +1,62 @@
+.categories {
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение между элементами */
+    align-items: center;
+    background-color: #4f4a4a;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #930202;
+    font-family: 'Arial', sans-serif;
+    gap: 10px; /* Расстояние между кнопками */
+  }
+  
+  .category {
+    flex: 1; /* Растягивает элемент, чтобы занять равную ширину */
+    text-align: center; /* Центровка текста */
+  }
+  
+  .category__button {
+    width: 100%; /* Заполняет родительский контейнер */
+    background-color: #333;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    text-align: center; /* Центровка текста на кнопке */
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .category__button:hover {
+    background-color: #555;
+  }
+  
+  .subcategories {
+    display: none;
+    flex-direction: column;
+    margin-top: 5px;
+    padding-left: 20px;
+  }
+  
+  .subcategories.visible {
+    display: flex;
+  }
+  
+  .subcategory__button {
+    background-color: #555;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .subcategory__button:hover {
+    background-color: #777;
+  }
+  
