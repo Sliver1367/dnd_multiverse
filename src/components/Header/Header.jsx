@@ -1,4 +1,6 @@
-function Header() {
+import React from "react";
+
+const Header = () => {
     return (
       <header className="header">
         <div className="header__left">DND Multiverse</div>
@@ -14,5 +16,7 @@ function Header() {
         </div>
       </header>
     );
-  }
+  };
+
+  export default Header;
   

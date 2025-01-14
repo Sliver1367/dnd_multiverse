@@ -19,20 +19,16 @@
 // export default App;
 
 
+import React from "react";
+import DndMultiverse from "./components/DndMultiverse/DndMultiverse";
 
-import Header from "./components/Header/Header";
-import Categories from "./components/Categories/Categories";
-import Workscreen from "./components/Workscreen/Workscreen";
-import appStore from "./store/appStore";
-
-function App() {
+const App = () => {
   return (
-    <div className="app">
-      <Header/>
-      <Categories store={appStore}/>
-      <Workscreen store={appStore}/>
+    <div >
+      <DndMultiverse/>
     </div>
   );
-}
-
+};
 export default App;
+
+

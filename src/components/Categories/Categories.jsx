@@ -1,6 +1,6 @@
-import { observer } from "mobx-react";
+import React from "react";
 
-function Categories({ store }) {
+const Categories = () => {
   const categories = [
     {
       name: "Персонажи",
@@ -15,25 +15,18 @@ function Categories({ store }) {
     <div className="categories">
       {categories.map((category) => (
         <div key={category.name}>
-          <button onClick={() => store.setActiveCategory(category.name)}>
-            {category.name}
-          </button>
-          {store.activeCategory === category.name && category.subcategories.length > 0 && (
+          <button>{category.name}</button>
+          {
             <div className="subcategories">
               {category.subcategories.map((sub) => (
-                <button
-                  key={sub}
-                  onClick={() => store.setActiveSubcategory(sub)}
-                >
-                  {sub}
-                </button>
+                <button>{sub}</button>
               ))}
             </div>
-          )}
+          }
         </div>
       ))}
     </div>
   );
-}
+};
 
-export default observer(Categories);
+export default Categories;
