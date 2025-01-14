@@ -10,8 +10,13 @@ const Categories = () => {
       subcategories: ["Мои персонажи", "Создание персонажей"],
     },
     { name: "Заклинания", subcategories: ["Мои заклинания", "Поиск"] },
+    { name: "Инвентарь", subcategories: [] },
+    { name: "Бестиарий", subcategories: [] },
     { name: "Расы", subcategories: [] },
-    { name: "Классы", subcategories: [] }
+    { name: "Классы", subcategories: [] },
+    { name: "Черты", subcategories: [] },
+    { name: "Предыстории", subcategories: [] },
+    { name: "Инструменты Мастера", subcategories: ["Бастионы"] },
   ];
 
   const toggleSubcategories = (categoryName) => {
