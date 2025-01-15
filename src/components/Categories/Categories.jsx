@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Categories.css";
 
+
 const Categories = () => {
   const [activeCategory, setActiveCategory] = useState(null);
 

@@ -1,5 +1,7 @@
 import React from "react";
 import "./Header.css";
+import DndDataUploader from "../BDDataUploader/BDDataUploader"
+
 
 const Header = () => {
   return (
@@ -12,6 +14,7 @@ const Header = () => {
           placeholder="Search..."
         />
       </div>
+      <DndDataUploader/>
       <div className="header__auth">
         <button className="auth__button">Sign In</button>
         <button className="auth__button">Sign Up</button>
