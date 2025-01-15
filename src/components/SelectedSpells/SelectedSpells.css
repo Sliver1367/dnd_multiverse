@@ -1,0 +1,62 @@
+.selected-spells {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ae0707;
+    border-radius: 16px;
+  }
+  
+  .selected-spells h2 {
+    color: #ae0707;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .spell-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .spell-card {
+    background: #f9f9f9;
+    border: 2px solid #ae0707;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .spell-card__header h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+    color: #ae0707;
+  }
+  
+  .spell-card__header p {
+    font-size: 14px;
+    color: #ae0707;
+  }
+  
+  .spell-card__details p,
+  .spell-card__description p,
+  .spell-card__higher-level p {
+    font-size: 14px;
+    margin: 4px 0;
+    color: #333;
+  }
+  
+  .download-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ae0707;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .download-button:hover {
+    background-color: #870505;
+  }
