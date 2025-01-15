@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import spellStore from "../../store/spellStore";
 import Filters from "../Filters/Filters";
-import "./SpellCard.css";
+import "./AllSpells.css";
 
 const SpellDatabase = () => {
   return (

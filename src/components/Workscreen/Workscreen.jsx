@@ -1,10 +1,10 @@
 import React from "react";
-import Spells from "../SpellDatabase/SpellDatabase"; // Импортируем компонент со всеми заклинаниями
+import AllSpells from "../AllSpells/AllSpells"; // Импортируем компонент со всеми заклинаниями
 
 const Workscreen = ({ activeCategory, activeSubcategory }) => {
   const renderContent = () => {
     if (activeCategory === "Заклинания" && activeSubcategory === "Все заклинания") {
-      return <Spells />; // Отображаем компонент со всеми заклинаниями
+      return <AllSpells />; // Отображаем компонент со всеми заклинаниями
     }
 
     if (activeCategory === "Заклинания" && activeSubcategory === "Поиск") {
