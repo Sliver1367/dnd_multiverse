@@ -3,44 +3,45 @@
   background: #f9f9f9;
   border: 2px solid #d4d4d4;
   border-radius: 16px;
-  padding: 20px;
+  padding: 22px; /* Увеличены боковые отступы */
   margin: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  min-height: 500px; /* Устанавливаем минимальную высоту */
+  max-width: 425px;
+  min-height: 685px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Распределяем контент */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-width 0.2s ease;
 }
 
 .spell-card.selected {
   border-color: #ae0707;
-  background: #ffe5e5; /* Светло-красный для выбранной карточки */
 }
 
 .spell-card__header {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .spell-card__header h1 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #333;
+  margin-bottom: 4px;
 }
 
 .spell-card__header p {
-  font-size: 14px;
+  font-size: 16px;
   color: #777;
   font-style: italic;
+  margin: 3px;
 }
 
 .spell-card__mini-table {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid #d4d4d4;
   border-radius: 8px;
 }
@@ -48,36 +49,53 @@
 .spell-card__mini-table div {
   padding: 8px;
   border-bottom: 1px solid #d4d4d4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+}
+
+.spell-card__mini-table div > span {
+  margin-top: 4px;
+}
+
+.spell-card__mini-table div span.material-components {
+  font-size: 12px;
 }
 
 .spell-card__mini-table div:last-child {
   border-bottom: none;
 }
 
+.spell-card__mini-table div:nth-child(2n) {
+  border-left: 1px solid #d4d4d4;
+}
+
 .spell-card__description {
   margin-top: 16px;
-  font-size: 14px;
+  font-size: 16px;
   color: #444;
   line-height: 1.5;
-  flex-grow: 1; /* Занимает доступное пространство */
+  flex-grow: 1;
 }
 
 .spell-card__higher-level {
-  margin-top: 16px;
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
   color: #555;
+  margin-bottom: 9px;
 }
 
 .spell-card__footer {
-  position: relative; /* Устанавливаем контейнер как родитель для абсолютного позиционирования */
-  height: 50px; /* Фиксируем высоту для консистентного размещения */
+  position: relative;
+  height: 50px;
 }
 
 .spell-card__nav-button {
-  position: absolute; /* Абсолютное позиционирование для стрелок */
-  top: 50%; /* Центрируем по вертикали */
-  transform: translateY(-50%); /* Центрирование по вертикали через трансформацию */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   background: #ae0707;
   border: none;
   color: white;
@@ -85,7 +103,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .spell-card__nav-button:hover {
@@ -98,25 +116,25 @@
 }
 
 .spell-card__nav-button:first-of-type {
-  left: 10px; /* Располагаем стрелку влево */
+  left: 10px;
 }
 
 .spell-card__nav-button:last-of-type {
-  right: 10px; /* Располагаем стрелку вправо */
+  right: 10px;
 }
 
 .spell-card__select-button {
-  position: absolute; /* Абсолютное позиционирование кнопки */
-  top: 50%; /* Центрируем по вертикали */
-  left: 50%; /* Центрируем по горизонтали */
-  transform: translate(-50%, -50%); /* Центрирование по обоим осям */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #ae0707;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   transition: background-color 0.3s ease;
   width: auto;
   max-width: 250px;
