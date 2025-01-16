@@ -8,7 +8,9 @@ const findLastBoundary = (text, limit) => {
     slicedText.lastIndexOf("."),
     slicedText.lastIndexOf(",")
   );
-  return lastBoundaryIndex > -1 ? slicedText.slice(0, lastBoundaryIndex + 1) : slicedText;
+  return lastBoundaryIndex > -1
+    ? slicedText.slice(0, lastBoundaryIndex + 1)
+    : slicedText;
 };
 
 // Функция для разбиения текста с учетом границ
@@ -38,8 +40,10 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
 
   // Определяем лимит длины текста для первой карточки
   const hasHigherLevelText = Boolean(spell.onHigherLevelRus);
-  const hasLongComponents = spell.componentMRus && spell.componentMRus.length > 50;
-  const firstCardDescriptionLimit = hasHigherLevelText || hasLongComponents ? 500 : 730;
+  const hasLongComponents =
+    spell.componentMRus && spell.componentMRus.length > 50;
+  const firstCardDescriptionLimit =
+    hasHigherLevelText || hasLongComponents ? 500 : 730;
   const additionalCardLimit = 1000;
 
   // Разбиваем текст на части
@@ -64,7 +68,7 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
       }}
     >
       <div className="spell-card__header">
-        <h1>{spell.titleRus}</h1>
+        <h1 className="title">{spell.titleRus}</h1>
         <p>
           {spell.level} уровень - {spell.schoolRus || spell.school}
         </p>
@@ -85,7 +89,14 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
               <span>
                 {spell.componentV && "В "}
                 {spell.componentS && "С "}
-                {spell.componentM && `М (${spell.componentMRus})`}
+                {spell.componentM && (
+                  <span>
+                    M{" "}
+                    <div className="material-components">
+                      ({spell.componentMRus})
+                    </div>
+                  </span>
+                )}
               </span>
             </div>
             <div>
@@ -105,9 +116,7 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
       {spell.onHigherLevelRus && currentPart === 0 && (
         <div className="spell-card__higher-level">
           <h3>На более высоком уровне</h3>
-          <div
-            dangerouslySetInnerHTML={{ __html: spell.onHigherLevelRus }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: spell.onHigherLevelRus }} />
         </div>
       )}
       <div className="spell-card__footer">
