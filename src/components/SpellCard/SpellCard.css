@@ -1,4 +1,5 @@
 .spell-card {
+  position: relative; /* Для управления внутренними элементами */
   background: #f9f9f9;
   border: 2px solid #d4d4d4;
   border-radius: 16px;
@@ -6,14 +7,13 @@
   margin: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
+  min-height: 500px; /* Фиксированная высота карточки */
+  overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden;
 }
 
 .spell-card.selected {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
   border-color: #ae0707;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .spell-card__header h1 {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
   margin: 0;
   color: #333;
@@ -32,52 +32,81 @@
 .spell-card__header p {
   font-size: 14px;
   color: #777;
-  margin: 4px 0 0;
   font-style: italic;
 }
 
-.spell-card__details {
-  margin-bottom: 16px;
+.spell-card__mini-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Два столбца */
+  gap: 8px;
+  font-size: 12px;
+  border: 1px solid #d4d4d4; /* Общая граница для таблицы */
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.spell-card__table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 8px;
-}
-
-.spell-card__table td {
+.spell-card__mini-table div {
+  display: flex;
+  justify-content: space-between;
   padding: 8px;
-  font-size: 14px;
-  vertical-align: top;
+  border-bottom: 1px solid #d4d4d4; /* Граница между строками */
 }
 
-.spell-card__table td:first-child {
-  font-weight: bold;
-  width: 40%;
-  color: #555;
+.spell-card__mini-table div:last-child {
+  border-bottom: none; /* Убираем последнюю нижнюю границу */
 }
 
 .spell-card__description {
-  margin-bottom: 16px;
+  margin-top: 16px;
   font-size: 14px;
   color: #444;
   line-height: 1.5;
+  max-height: 100px; /* Фиксированная высота для свернутого текста */
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.spell-card__description.expanded {
+  max-height: none; /* Увеличиваем высоту при раскрытии */
 }
 
 .spell-card__higher-level {
-  background: #f9f9f9;
-  padding: 12px;
-  border-radius: 8px;
+  margin-top: 16px;
+  margin-bottom: 26px;
   font-size: 14px;
-  color: #120608;
   font-style: italic;
+  color: #555;
 }
 
 .spell-card__footer {
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  color: #666;
-  margin-top: 16px;
+  position: absolute;
+  bottom: 10px; /* Фиксируем кнопку внизу карточки */
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+.spell-card__toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.spell-card__arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #ae0707;
+  border-bottom: 2px solid #ae0707;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.spell-card__arrow.arrow-up {
+  transform: rotate(-135deg);
+}
+
+.spell-card__arrow.arrow-down {
+  transform: rotate(45deg);
+}
+
+

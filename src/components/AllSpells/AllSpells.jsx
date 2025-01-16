@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import Filters from "../Filters/Filters";
 import SpellCard from "../SpellCard/SpellCard";
-import SelectedSpells from "../SelectedSpells/SelectedSpells"; // Компонент для выбранных карточек
+import SelectedSpells from "../SelectedSpells/SelectedSpells"; 
 import "./AllSpells.css";
 
 const AllSpells = () => {
@@ -20,9 +20,6 @@ const AllSpells = () => {
       setFilteredSpells(spellsData);
 
       const uniqueLevels = [...new Set(spellsData.map((spell) => spell.level))];
-      const uniqueCategories = [
-        ...new Set(spellsData.map((spell) => spell.category)),
-      ];
       const uniqueCastingTimes = [
         ...new Set(spellsData.map((spell) => spell.castingTimeRus)),
       ];
@@ -35,7 +32,6 @@ const AllSpells = () => {
 
       setFilterOptions({
         levels: uniqueLevels,
-        categories: uniqueCategories,
         castingTimes: uniqueCastingTimes,
         durations: uniqueDurations,
         schools: uniqueSchools,

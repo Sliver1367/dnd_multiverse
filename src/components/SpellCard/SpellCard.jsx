@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SpellCard.css";
 
 const SpellCard = ({ spell, isSelected, onSelect }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const descriptionLengthLimit = 730;
+
+  const toggleExpand = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
+  const isLongDescription = spell.descriptionRus.length > descriptionLengthLimit;
+
   return (
     <div
       className={`spell-card ${isSelected ? "selected" : ""}`}
@@ -14,51 +23,48 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
         </p>
       </div>
       <div className="spell-card__details">
-        <table className="spell-card__table">
-          <tbody>
-            <tr>
-              <td>
-                <strong>Время накладывания:</strong>
-              </td>
-              <td>{spell.castingTimeRus}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Дистанция:</strong>
-              </td>
-              <td>{spell.rangeFt} футов</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Компоненты:</strong>
-              </td>
-              <td>
-                {spell.componentV === "TRUE" && "В "}
-                {spell.componentS === "TRUE" && "С "}
-                {spell.componentM === "TRUE" && `М (${spell.componentMRus})`}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Длительность:</strong>
-              </td>
-              <td>{spell.durationRus}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="spell-card__mini-table">
+          <div>
+            <strong>Время:</strong> {spell.castingTimeRus}
+          </div>
+          <div>
+            <strong>Дистанция:</strong> {spell.rangeFt} футов
+          </div>
+          <div>
+            <strong>Компоненты:</strong>{" "}
+            {spell.componentV === "TRUE" && "В "}
+            {spell.componentS === "TRUE" && "С "}
+            {spell.componentM === "TRUE" && `М (${spell.componentMRus})`}
+          </div>
+          <div>
+            <strong>Длительность:</strong> {spell.durationRus}
+          </div>
+        </div>
       </div>
-      <div className="spell-card__description">
-        <p>{spell.descriptionRus}</p>
+      <div
+        className={`spell-card__description ${
+          isExpanded || !isLongDescription ? "expanded" : ""
+        }`}
+      >
+        <div dangerouslySetInnerHTML={{ __html: spell.descriptionRus }} />
       </div>
       {spell.onHigherLevelRus && (
         <div className="spell-card__higher-level">
           <h3>На более высоком уровне</h3>
-          <p>{spell.onHigherLevelRus}</p>
+          <div dangerouslySetInnerHTML={{ __html: spell.onHigherLevelRus }} />
         </div>
       )}
-      <div className="spell-card__footer">
-        <p>{spell.schoolRus || spell.school}</p>
-      </div>
+      {isLongDescription && (
+        <div className="spell-card__footer">
+          <button className="spell-card__toggle" onClick={toggleExpand}>
+            <span
+              className={`spell-card__arrow ${
+                isExpanded ? "arrow-up" : "arrow-down"
+              }`}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
