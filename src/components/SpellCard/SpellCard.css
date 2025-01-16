@@ -1,5 +1,5 @@
 .spell-card {
-  position: relative; /* Для управления внутренними элементами */
+  position: relative;
   background: #f9f9f9;
   border: 2px solid #d4d4d4;
   border-radius: 16px;
@@ -7,14 +7,16 @@
   margin: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  min-height: 500px; /* Фиксированная высота карточки */
-  overflow: hidden;
-  cursor: pointer;
+  min-height: 500px; /* Устанавливаем минимальную высоту */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Распределяем контент */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .spell-card.selected {
   border-color: #ae0707;
+  background: #ffe5e5; /* Светло-красный для выбранной карточки */
 }
 
 .spell-card__header {
@@ -25,7 +27,6 @@
 .spell-card__header h1 {
   font-size: 18px;
   font-weight: bold;
-  margin: 0;
   color: #333;
 }
 
@@ -37,23 +38,20 @@
 
 .spell-card__mini-table {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Два столбца */
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
   font-size: 12px;
-  border: 1px solid #d4d4d4; /* Общая граница для таблицы */
+  border: 1px solid #d4d4d4;
   border-radius: 8px;
-  overflow: hidden;
 }
 
 .spell-card__mini-table div {
-  display: flex;
-  justify-content: space-between;
   padding: 8px;
-  border-bottom: 1px solid #d4d4d4; /* Граница между строками */
+  border-bottom: 1px solid #d4d4d4;
 }
 
 .spell-card__mini-table div:last-child {
-  border-bottom: none; /* Убираем последнюю нижнюю границу */
+  border-bottom: none;
 }
 
 .spell-card__description {
@@ -61,52 +59,77 @@
   font-size: 14px;
   color: #444;
   line-height: 1.5;
-  max-height: 100px; /* Фиксированная высота для свернутого текста */
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.spell-card__description.expanded {
-  max-height: none; /* Увеличиваем высоту при раскрытии */
+  flex-grow: 1; /* Занимает доступное пространство */
 }
 
 .spell-card__higher-level {
   margin-top: 16px;
-  margin-bottom: 26px;
   font-size: 14px;
   font-style: italic;
   color: #555;
 }
 
 .spell-card__footer {
-  position: absolute;
-  bottom: 10px; /* Фиксируем кнопку внизу карточки */
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative; /* Устанавливаем контейнер как родитель для абсолютного позиционирования */
+  height: 50px; /* Фиксируем высоту для консистентного размещения */
 }
 
-.spell-card__toggle {
-  background: none;
+.spell-card__nav-button {
+  position: absolute; /* Абсолютное позиционирование для стрелок */
+  top: 50%; /* Центрируем по вертикали */
+  transform: translateY(-50%); /* Центрирование по вертикали через трансформацию */
+  background: #ae0707;
   border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
-.spell-card__arrow {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid #ae0707;
-  border-bottom: 2px solid #ae0707;
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
+.spell-card__nav-button:hover {
+  background: #880505;
 }
 
-.spell-card__arrow.arrow-up {
-  transform: rotate(-135deg);
+.spell-card__nav-button:disabled {
+  background: #d4d4d4;
+  cursor: not-allowed;
 }
 
-.spell-card__arrow.arrow-down {
-  transform: rotate(45deg);
+.spell-card__nav-button:first-of-type {
+  left: 10px; /* Располагаем стрелку влево */
 }
 
+.spell-card__nav-button:last-of-type {
+  right: 10px; /* Располагаем стрелку вправо */
+}
 
+.spell-card__select-button {
+  position: absolute; /* Абсолютное позиционирование кнопки */
+  top: 50%; /* Центрируем по вертикали */
+  left: 50%; /* Центрируем по горизонтали */
+  transform: translate(-50%, -50%); /* Центрирование по обоим осям */
+  background: #ae0707;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  width: auto;
+  max-width: 250px;
+}
+
+.spell-card__select-button:hover {
+  background: #880505;
+}
+
+.spell-card__select-button.selected {
+  background: #555;
+}
+
+.spell-card__select-button.selected:hover {
+  background: #333;
+}
