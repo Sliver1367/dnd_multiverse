@@ -4,9 +4,9 @@
   border: 2px solid #ae0707;
   border-radius: 12px;
   padding: 12px;
-  margin: 20px 0;
+  margin: 20px auto; /* Центрирование карточки */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 425px;
+  width: 425px; /* Фиксированная ширина */
   min-height: 685px;
   display: flex;
   flex-direction: column;

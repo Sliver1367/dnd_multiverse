@@ -34,7 +34,7 @@ const splitDescriptionByBoundaries = (text, firstLimit, partLimit) => {
 };
 
 const SpellCard = ({ spell, isSelected, onSelect }) => {
-  const [currentPart, setCurrentPart] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0); // Для переключения страниц
 
   if (!spell) return null;
 
@@ -53,10 +53,14 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
     additionalCardLimit
   );
 
-  const handleNextPart = () =>
-    setCurrentPart((prev) => Math.min(prev + 1, descriptionParts.length - 1));
-  const handlePreviousPart = () =>
-    setCurrentPart((prev) => Math.max(prev - 1, 0));
+  // Общее количество страниц (включает текстовые части + доп. материал)
+  const totalPages = descriptionParts.length + (spell.dopMaterial ? 1 : 0);
+
+  // Обработчики переключения страниц
+  const handleNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+  const handlePreviousPage = () =>
+    setCurrentPage((prev) => Math.max(prev - 1, 0));
 
   return (
     <div
@@ -73,58 +77,78 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
           {spell.level} уровень - {spell.schoolRus || spell.school}
         </p>
       </div>
-      {currentPart === 0 && (
-        <div className="spell-card__details">
-          <div className="spell-card__mini-table">
-            <div>
-              <strong>Время:</strong>
-              <span>{spell.castingTimeRus}</span>
-            </div>
-            <div>
-              <strong>Дистанция:</strong>
-              <span>{spell.rangeFt} футов</span>
-            </div>
-            <div>
-              <strong>Компоненты:</strong>
-              <span>
-                {spell.componentV && "В "}
-                {spell.componentS && "С "}
-                {spell.componentM && (
-                  <span>
-                    M{" "}
-                    <div className="material-components">
-                      ({spell.componentMRus})
-                    </div>
-                  </span>
-                )}
-              </span>
-            </div>
-            <div>
-              <strong>Длительность:</strong>
-              <span>{spell.durationRus}</span>
+      {/* Первая страница с таблицей и описанием */}
+      {currentPage === 0 && (
+        <>
+          <div className="spell-card__details">
+            <div className="spell-card__mini-table">
+              <div>
+                <strong>Время использования:</strong>
+                <span>{spell.castingTimeRus}</span>
+              </div>
+              <div>
+                <strong>Дистанция:</strong>
+                <span>
+                  {spell.rangeFt === "Self"
+                    ? "На себя"
+                    : spell.rangeFt === "Touch"
+                    ? "Касание"
+                    : `${spell.rangeFt} футов`}
+                </span>
+              </div>
+              <div>
+                <strong>Компоненты:</strong>
+                <span>
+                  {spell.componentV && "В "}
+                  {spell.componentS && "С "}
+                  {spell.componentM && (
+                    <span>
+                      M{" "}
+                      <div className="material-components">
+                        ({spell.componentMRus})
+                      </div>
+                    </span>
+                  )}
+                </span>
+              </div>
+              <div>
+                <strong>Длительность:</strong>
+                <span>{spell.durationRus}</span>
+              </div>
             </div>
           </div>
+          <div className="spell-card__description">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: descriptionParts[currentPage],
+              }}
+            />
+          </div>
+        </>
+      )}
+      {/* Описание на следующих страницах */}
+      {currentPage > 0 && currentPage < descriptionParts.length && (
+        <div className="spell-card__description">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: descriptionParts[currentPage],
+            }}
+          />
         </div>
       )}
-      <div className="spell-card__description">
-        <div
-          dangerouslySetInnerHTML={{
-            __html: descriptionParts[currentPart],
-          }}
-        />
-      </div>
-      {spell.onHigherLevelRus && currentPart === 0 && (
-        <div className="spell-card__higher-level">
-          <h3>На более высоком уровне</h3>
-          <div dangerouslySetInnerHTML={{ __html: spell.onHigherLevelRus }} />
+      {/* Последняя страница - Дополнительные материалы */}
+      {currentPage === descriptionParts.length && spell.dopMaterial && (
+        <div className="spell-card__dop-material">
+          <h3>Дополнительные материалы</h3>
+          <p>{spell.dopMaterial}</p>
         </div>
       )}
       <div className="spell-card__footer">
-        {currentPart > 0 && (
+        {/* Кнопка назад */}
+        {currentPage > 0 && (
           <button
             className="spell-card__nav-button"
-            onClick={handlePreviousPart}
-            disabled={currentPart === 0}
+            onClick={handlePreviousPage}
           >
             ←
           </button>
@@ -137,11 +161,11 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
         >
           {isSelected ? "Отменить выбор" : "Выбрать"}
         </button>
-        {currentPart < descriptionParts.length - 1 && (
+        {/* Кнопка вперёд */}
+        {currentPage < totalPages - 1 && (
           <button
             className="spell-card__nav-button"
-            onClick={handleNextPart}
-            disabled={currentPart === descriptionParts.length - 1}
+            onClick={handleNextPage}
           >
             →
           </button>

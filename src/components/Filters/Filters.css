@@ -1,42 +1,72 @@
 .filters-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    border: 2px solid #ae0707;
-    border-radius: 16px;
-    background-color: #fff5f5;
-    max-width: 300px;
-  }
-  
-  .filters-container label {
-    display: flex;
-    flex-direction: column;
-    font-weight: bold;
-    color: #ae0707;
-    font-size: 14px;
-  }
-  
-  .filters-container select {
-    margin-top: 8px;
-    padding: 8px;
-    border: 1px solid #ae0707;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #333;
-    background-color: #fff;
-    outline: none;
-  }
-  
-  .filters-container select:focus {
-    border-color: #870505;
-  }
-  
-  .filters-container label::after {
-    content: "";
-    display: block;
-    margin: 8px 0;
-    height: 1px;
-    background-color: #ae0707;
-    opacity: 0.5;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid #ae0707;
+  border-radius: 16px;
+  background-color: #fff5f5;
+  max-width: 300px;
+}
+
+.filters-container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: #ae0707;
+  font-size: 14px;
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: #ae0707;
+  font-size: 14px;
+}
+
+.filters-container select,
+.filters-container .checkbox-button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border: 1px solid #ae0707;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+}
+
+.filters-container .checkbox-button {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  background-color: #fff5f5;
+}
+
+.filters-container .checkbox-button.checked {
+  background-color: #ae0707;
+}
+
+.filters-container .checkbox-button:hover {
+  background-color: #870505;
+}
+
+.reset-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ae0707;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #870505;
+}

@@ -6,6 +6,21 @@ import SpellCard from "../SpellCard/SpellCard";
 import SelectedSpells from "../SelectedSpells/SelectedSpells";
 import "./AllSpells.css";
 
+const classMapping = {
+  classWizard: "Волшебник",
+  classSorcerer: "Чародей",
+  classWarlock: "Колдун",
+  classCleric: "Жрец",
+  classDruid: "Друид",
+  classPaladin: "Паладин",
+  classRanger: "Следопыт",
+  classBard: "Бард",
+  classBarbarian: "Варвар",
+  classFighter: "Боец",
+  classMonk: "Монах",
+  classRogue: "Плут",
+};
+
 const AllSpells = () => {
   const [spells, setSpells] = useState([]);
   const [filteredSpells, setFilteredSpells] = useState([]);
@@ -19,22 +34,36 @@ const AllSpells = () => {
       setSpells(spellsData);
       setFilteredSpells(spellsData);
 
-      const uniqueLevels = [...new Set(spellsData.map((spell) => spell.level))];
+      const uniqueLevels = [...new Set(spellsData.map((spell) => spell.level))].sort();
       const uniqueCastingTimes = [
         ...new Set(spellsData.map((spell) => spell.castingTimeRus)),
-      ];
+      ].sort();
       const uniqueDurations = [
         ...new Set(spellsData.map((spell) => spell.durationRus)),
-      ];
+      ].sort();
       const uniqueSchools = [
         ...new Set(spellsData.map((spell) => spell.schoolRus || spell.school)),
-      ];
+      ].sort();
+      const uniqueRanges = [...new Set(spellsData.map((spell) => spell.rangeFt))].sort();
+      const uniqueClasses = [
+        ...new Set(
+          spellsData.flatMap((spell) =>
+            Object.keys(spell).filter(
+              (key) => key.startsWith("class") && spell[key] === "TRUE"
+            )
+          )
+        ),
+      ]
+        .sort()
+        .map((cls) => classMapping[cls] || cls);
 
       setFilterOptions({
         levels: uniqueLevels,
         castingTimes: uniqueCastingTimes,
         durations: uniqueDurations,
         schools: uniqueSchools,
+        ranges: uniqueRanges,
+        classes: uniqueClasses,
       });
     };
 
@@ -43,13 +72,34 @@ const AllSpells = () => {
 
   const applyFilters = (newFilters) => {
     const filtered = spells.filter((spell) => {
+      const isRitual = spell.ritual === "TRUE";
+      const isConcentration = spell.concentration === "TRUE";
+      const hasComponentV = spell.componentV === "TRUE";
+      const hasComponentS = spell.componentS === "TRUE";
+      const hasComponentM = spell.componentM && spell.componentM.trim().length > 0;
+
+      const classKey = Object.keys(classMapping).find(
+        (key) => classMapping[key] === newFilters.class
+      );
+
       return (
         (!newFilters.level || spell.level === newFilters.level) &&
-        (!newFilters.category || spell.category === newFilters.category) &&
+        (!newFilters.ritual || isRitual === newFilters.ritual) &&
         (!newFilters.castingTime ||
           spell.castingTimeRus === newFilters.castingTime) &&
+        (!newFilters.rangeFt || spell.rangeFt === newFilters.rangeFt) &&
+        (!newFilters.componentV || hasComponentV) &&
+        (!newFilters.componentS || hasComponentS) &&
+        (!newFilters.componentM || hasComponentM) &&
+        (!newFilters.concentration ||
+          isConcentration === newFilters.concentration) &&
         (!newFilters.duration || spell.durationRus === newFilters.duration) &&
-        (!newFilters.school || spell.schoolRus === newFilters.school)
+        (!newFilters.onHigherLevel ||
+          spell.onHigherLevel === newFilters.onHigherLevel) &&
+        (!newFilters.school ||
+          spell.schoolRus === newFilters.school ||
+          spell.school === newFilters.school) &&
+        (!newFilters.class || (classKey && spell[classKey] === "TRUE"))
       );
     });
 
@@ -66,6 +116,10 @@ const AllSpells = () => {
     });
   };
 
+  const resetSelectedSpells = () => {
+    setSelectedSpells([]);
+  };
+
   return (
     <div className="all-spells-container">
       <div className="filters-container">
@@ -73,18 +127,23 @@ const AllSpells = () => {
       </div>
 
       <div className="cards-container">
-        {filteredSpells.map((spell, index) => (
-          <SpellCard
-            key={index}
-            spell={spell}
-            isSelected={selectedSpells.includes(spell)}
-            onSelect={() => toggleSelectSpell(spell)}
-          />
-        ))}
+        {filteredSpells
+          .sort((a, b) => a.titleRus.localeCompare(b.titleRus))
+          .map((spell, index) => (
+            <SpellCard
+              key={index}
+              spell={spell}
+              isSelected={selectedSpells.includes(spell)}
+              onSelect={() => toggleSelectSpell(spell)}
+            />
+          ))}
       </div>
 
       <div className="selected-spells-container">
-        <SelectedSpells selectedSpells={selectedSpells} />
+        <SelectedSpells
+          selectedSpells={selectedSpells}
+          onResetSpells={resetSelectedSpells}
+        />
       </div>
     </div>
   );
