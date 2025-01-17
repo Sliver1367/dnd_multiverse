@@ -108,12 +108,17 @@ const AllSpells = () => {
 
   const toggleSelectSpell = (spell) => {
     setSelectedSpells((prevSelected) => {
-      if (prevSelected.includes(spell)) {
-        return prevSelected.filter((s) => s !== spell);
-      } else {
-        return [...prevSelected, spell];
+      if (prevSelected.some((s) => s.titleRus === spell.titleRus)) {
+        return prevSelected.filter((s) => s.titleRus !== spell.titleRus);
       }
+      return [...prevSelected, spell];
     });
+  };
+
+  const removeSpell = (spellToRemove) => {
+    setSelectedSpells((prevSelected) =>
+      prevSelected.filter((spell) => spell.titleRus !== spellToRemove.titleRus)
+    );
   };
 
   const resetSelectedSpells = () => {
@@ -133,7 +138,7 @@ const AllSpells = () => {
             <SpellCard
               key={index}
               spell={spell}
-              isSelected={selectedSpells.includes(spell)}
+              isSelected={selectedSpells.some((s) => s.titleRus === spell.titleRus)}
               onSelect={() => toggleSelectSpell(spell)}
             />
           ))}
@@ -143,6 +148,7 @@ const AllSpells = () => {
         <SelectedSpells
           selectedSpells={selectedSpells}
           onResetSpells={resetSelectedSpells}
+          onRemoveSpell={removeSpell}
         />
       </div>
     </div>

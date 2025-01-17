@@ -22,12 +22,12 @@ const SelectedSpells = ({ selectedSpells, onResetSpells, onRemoveSpell }) => {
           <p>Нет выбранных заклинаний</p>
         ) : (
           <ul>
-            {selectedSpells.map((spell, index) => (
-              <li key={index} className="spell-item">
+            {selectedSpells.map((spell) => (
+              <li key={spell.titleRus} className="spell-item">
                 <span>{spell.titleRus}</span>
                 <button
                   className="remove-button"
-                  onClick={() => onRemoveSpell(index)}
+                  onClick={() => onRemoveSpell(spell)}
                   aria-label="Удалить заклинание"
                 >
                   &times;
