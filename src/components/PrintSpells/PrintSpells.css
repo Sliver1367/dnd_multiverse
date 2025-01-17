@@ -1,8 +1,8 @@
 .print-spells {
-  width: 210mm;
-  height: 297mm;
-  margin: 0 auto;
-  padding: 20mm;
+  width: 90%;
+  height: 90%;
+  margin: 5% auto;
+  padding: 20px;
   box-sizing: border-box;
   background-color: #fff;
   font-family: Arial, sans-serif;
@@ -10,22 +10,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Для позиционирования кнопки */
 }
 
 .print-spells h1 {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 24px;
+  color: #ae0707;
 }
 
 .spells-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10mm;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
   width: 100%;
+  flex-grow: 1; /* Чтобы сетка занимала всё доступное пространство */
 }
 
 .print-page-button {
-  margin-top: 20px;
+  position: fixed;
+  bottom: 5%; /* Отступ снизу */
+  left: 50%; /* Центруем по горизонтали */
+  transform: translateX(-50%); /* Для абсолютного центрирования */
   padding: 10px 20px;
   background-color: #ae0707;
   color: white;
@@ -33,9 +43,11 @@
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Плавный переход */
+  z-index: 10; /* Чтобы кнопка оставалась поверх контента */
 }
 
 .print-page-button:hover {
-  background-color: #870505;
+  background-color: #870505; /* Изменение цвета при наведении */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Добавляем тень вместо масштабирования */
 }

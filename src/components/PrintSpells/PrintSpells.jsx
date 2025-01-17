@@ -9,7 +9,6 @@ const PrintSpells = ({ spells }) => {
 
   return (
     <div className="print-spells">
-      <h1>Выбранные заклинания</h1>
       <div className="spells-grid">
         {spells.map((spell, index) => (
           <SpellCard key={index} spell={spell} />
