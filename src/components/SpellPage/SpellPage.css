@@ -1,0 +1,19 @@
+.spell-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Расстояние между страницами */
+    page-break-after: always; /* Обеспечиваем разрыв страницы в PDF */
+  }
+  
+  .spell-card-print {
+    width: calc(33.33% - 10px); /* Три карточки в ряд */
+    margin: 5px;
+    box-sizing: border-box;
+  }
+  .empty-card {
+    visibility: hidden; /* Скрываем пустые карточки */
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    height: 200px; /* Устанавливаем высоту для корректного выравнивания */
+  }

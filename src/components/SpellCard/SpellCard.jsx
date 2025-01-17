@@ -126,6 +126,12 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
           </div>
         </>
       )}
+      {currentPage === 0 && spell.onHigherLevelRus && (
+        <div className="spell-card__higher-level">
+          <h3>На более высоких уровнях</h3>
+          <p>{spell.onHigherLevelRus}</p>
+        </div>
+      )}
       {/* Описание на следующих страницах */}
       {currentPage > 0 && currentPage < descriptionParts.length && (
         <div className="spell-card__description">
@@ -163,10 +169,7 @@ const SpellCard = ({ spell, isSelected, onSelect }) => {
         </button>
         {/* Кнопка вперёд */}
         {currentPage < totalPages - 1 && (
-          <button
-            className="spell-card__nav-button"
-            onClick={handleNextPage}
-          >
+          <button className="spell-card__nav-button" onClick={handleNextPage}>
             →
           </button>
         )}
