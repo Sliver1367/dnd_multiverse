@@ -61,12 +61,7 @@ const SpellCardToPrint = ({ spell, isSelected }) => {
       {descriptionParts.map((part, index) => (
         <div
           key={index}
-          className={`spell-card-print ${isSelected ? "selected" : ""}`}
-          style={{
-            boxShadow: isSelected ? "0 8px 16px rgba(0, 0, 0, 0.2)" : "none",
-            transform: isSelected ? "scale(1.03)" : "none",
-            borderWidth: isSelected ? "3px" : "2px",
-          }}
+          className={`spell-card-print`}
         >
           <div className="spell-card-print__header">
             <h1 className="title">{spell.titleRus}</h1>

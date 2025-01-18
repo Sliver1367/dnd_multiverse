@@ -1,13 +1,13 @@
 /* Общий стиль карточки */
 .spell-card-print {
   position: relative;
-  background: #f9f9f9;
-  border: 2px solid #ae0707;
-  border-radius: 12px;
+  background: #ffffff;
+  border: 8px solid #ae0707;
+  border-radius: 20px;
   padding: 12px;
   margin: 20px auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 750px;
+  width: 745px;
   height: 1050px;
   display: flex;
   flex-direction: column;
@@ -15,78 +15,79 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-width 0.2s ease;
 }
 
-/* Стиль выделенной карточки */
-.spell-card-print.selected {
-  border-color: #ae0707;
-}
-
 /* Заголовок карточки */
 .spell-card-print__header {
   text-align: center;
-  margin-bottom: 8px;
+  margin: 8px;
+  padding-top: 18px;
 }
 
 .spell-card-print__header h1 {
-  font-size: 30px;
-  margin: 0;
+  font-size: 46px;
+  margin: 5px;
   font-weight: bold;
   color: #ae0707;
 }
 
 .spell-card-print__header p {
-  font-size: 16px;
+  font-size: 24px;
   color: #ae0707;
   font-style: italic;
-  margin: 3px;
+  margin: 7px;  
+  padding-bottom: 17px;
 }
 
-/* Мини-таблица характеристик */
+/* === Мини-таблица характеристик === */
 .spell-card-print__mini-table {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  font-size: 14px;
-  border: 1px solid #d4d4d4;
-  border-radius: 8px;
+  gap: 0px;
+  border: 4px solid var(--card-border-color); /* Цвет рамки таблицы */
+  border-radius: 10px;
 }
 
 .spell-card-print__mini-table div {
-  padding: 8px;
-  border-bottom: 1px solid #d4d4d4;
+  padding: 23px;
+  border-bottom: 2px solid var(--card-border-color); /* Цвет нижней рамки ячейки */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-size: 16px;
+  font-size: 28px;
 }
 
+.spell-card-print__mini-table div:last-child {
+  border-bottom: none; /* Убираем рамку у последней ячейки */
+}
+.spell-card-print__mini-table div:nth-child(3n) {
+  border-bottom: none; /* Убираем рамку у последней ячейки */
+}
 .spell-card-print__mini-table div > span {
   margin-top: 4px;
 }
+/* Добавляем вертикальную границу между колонками */
+.spell-card-print__mini-table div:nth-child(2n) {
+  border-left: 2px solid var(--card-border-color);
+}
 
+/* Убираем нижнюю границу у последнего элемента таблицы */
+.border-bottom-none {
+  border-bottom: none;
+}
 /* Компоненты материала */
 .spell-card-print__mini-table div div.material-components {
-  font-size: 12px;
+  font-size: 20px;
   text-align: justify;
   margin: 0;
   padding: 0;
   padding-top: 2px;
-}
-
-/* Убираем нижнюю границу у последнего элемента таблицы */
-.spell-card-print__mini-table div:last-child {
   border-bottom: none;
-}
-
-/* Добавляем вертикальную границу между колонками */
-.spell-card-print__mini-table div:nth-child(2n) {
-  border-left: 1px solid #d4d4d4;
 }
 
 /* Описание заклинания */
 .spell-card-print__description {
-  margin-top: 16px;
-  font-size: 16px;
+  margin: 16px;
+  font-size: 24px;
   color: #444;
   line-height: 1.5;
   flex-grow: 1;
@@ -95,7 +96,7 @@
 
 /* Секция "На более высоких уровнях" */
 .spell-card-print__higher-level {
-  font-size: 16px;
+  font-size: 24px;
   font-style: italic;
   color: #555;
   margin-bottom: 8px;
