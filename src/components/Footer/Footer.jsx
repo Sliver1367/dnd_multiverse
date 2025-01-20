@@ -1,4 +1,5 @@
 import React from "react";
+import DndDataUploader from "../BDDataUploader/BDDataUploader";
 
 const Footer = () => {
   return (
@@ -7,5 +8,4 @@ const Footer = () => {
     </footer>
   );
 };
-
 export default Footer;
