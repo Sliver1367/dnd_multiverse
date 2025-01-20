@@ -1,61 +1,80 @@
 import React, { useState } from "react";
 import "./Categories.css";
-import Workscreen from "../Workscreen/Workscreen"; // Импортируем Workscreen
 
-const Categories = () => {
-  const [activeCategory, setActiveCategory] = useState(null); // Активная категория
-  const [activeSubcategory, setActiveSubcategory] = useState(null); // Активная подкатегория
+const Categories = ({ onCategorySelect }) => {
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeSubcategory, setActiveSubcategory] = useState(null);
 
   const categories = [
+    { name: "Персонажи", subcategories: [] },
+    { name: "Заклинания", subcategories: [] },
     {
-      name: "Персонажи",
-      subcategories: ["Мои персонажи", "Создание персонажей"],
+      name: "Справочник",
+      subcategories: [
+        "Расы",
+        "Классы",
+        "Предыстории",
+        "Черты",
+        "Инвентарь",
+        "Правила",
+      ],
     },
-    { name: "Заклинания", subcategories: ["Все заклинания", "Поиск"] },
-    { name: "Инвентарь", subcategories: [] },
     { name: "Бестиарий", subcategories: [] },
-    { name: "Расы", subcategories: [] },
-    { name: "Классы", subcategories: [] },
-    { name: "Черты", subcategories: [] },
-    { name: "Предыстории", subcategories: [] },
-    { name: "Инструменты Мастера", subcategories: ["Бастионы"] },
+    {
+      name: "Инструменты мастера",
+      subcategories: ["Магические предметы", "Бастионы", "Сокровища"],
+    },
   ];
 
-  const handleCategoryClick = (categoryName) => {
-    setActiveCategory(categoryName); // Устанавливаем активную категорию
-    setActiveSubcategory(null); // Сбрасываем подкатегорию
+  const handleCategoryClick = (category) => {
+    if (category.name === activeCategory) {
+      setActiveCategory(null);
+      setActiveSubcategory(null);
+      onCategorySelect(null, null);
+    } else {
+      setActiveCategory(category.name);
+      setActiveSubcategory(null);
+
+      // Если нет подкатегорий, сразу переключаем экран
+      if (category.subcategories.length === 0) {
+        onCategorySelect(category.name, null);
+      }
+    }
   };
 
-  const handleSubcategoryClick = (subcategoryName) => {
-    setActiveSubcategory(subcategoryName); // Устанавливаем активную подкатегорию
+  const handleSubcategoryClick = (subcategory) => {
+    setActiveSubcategory(subcategory);
+
+    // Скрываем список подкатегорий после выбора
+    setActiveCategory(null);
+
+    onCategorySelect(activeCategory, subcategory);
   };
 
   return (
-    <div className="app">
-      <div className="categories">
-        {categories.map((category) => (
-          <div
-            key={category.name}
-            className={`category ${
+    <div className="categories">
+      {categories.map((category) => (
+        <div key={category.name} className="category">
+          <button
+            className={`category__button ${
               activeCategory === category.name ? "active" : ""
             }`}
+            onClick={() => handleCategoryClick(category)}
           >
-            <button
-              className="category__button"
-              onClick={() => handleCategoryClick(category.name)}
-            >
-              {category.name}
-            </button>
-            {category.subcategories.length > 0 && (
-              <div
-                className={`subcategories ${
-                  activeCategory === category.name ? "visible" : ""
-                }`}
-              >
+            {category.subcategories.includes(activeSubcategory)
+              ? activeSubcategory
+              : category.name}
+          </button>
+
+          {category.subcategories.length > 0 &&
+            activeCategory === category.name && (
+              <div className="subcategories">
                 {category.subcategories.map((sub) => (
                   <button
                     key={sub}
-                    className="subcategory__button"
+                    className={`subcategory__button ${
+                      activeSubcategory === sub ? "active" : ""
+                    }`}
                     onClick={() => handleSubcategoryClick(sub)}
                   >
                     {sub}
@@ -63,15 +82,8 @@ const Categories = () => {
                 ))}
               </div>
             )}
-          </div>
-        ))}
-      </div>
-      <div className="workscreen">
-        <Workscreen
-          activeCategory={activeCategory}
-          activeSubcategory={activeSubcategory}
-        />
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
