@@ -24,7 +24,7 @@ import DndMultiverse from "./components/DndMultiverse/DndMultiverse";
 
 const App = () => {
   return (
-    <div >
+    <div>
       <DndMultiverse/>
     </div>
   );

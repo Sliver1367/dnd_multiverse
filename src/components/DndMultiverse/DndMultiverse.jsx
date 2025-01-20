@@ -11,7 +11,7 @@ const DndMultiverse = () => {
       <Header/>
       <Categories/>
       <Workscreen/>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
