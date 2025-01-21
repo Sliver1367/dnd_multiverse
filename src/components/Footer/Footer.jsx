@@ -1,5 +1,4 @@
 import React from "react";
-import DndDataUploader from "../BDDataUploader/BDDataUploader";
 
 const Footer = () => {
   return (
