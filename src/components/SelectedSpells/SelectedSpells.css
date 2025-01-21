@@ -95,3 +95,26 @@
 .print-button:hover {
   background-color: #870505;
 }
+
+.save-button {
+  padding: 10px 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ae0707; /* Зелёный цвет для активной кнопки */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #870505; /* Более тёмный зелёный при наведении */
+}
+
+.save-button.disabled {
+  background-color: #d3d3d3; /* Серый цвет для неактивной кнопки */
+  color: #a9a9a9;
+  cursor: not-allowed;
+}

@@ -21,10 +21,10 @@ const classMapping = {
   classRogue: "Плут",
 };
 
-const AllSpells = () => {
+const AllSpells = ({ preSelectedSpells = [] }) => {
   const [spells, setSpells] = useState([]);
   const [filteredSpells, setFilteredSpells] = useState([]);
-  const [selectedSpells, setSelectedSpells] = useState([]);
+  const [selectedSpells, setSelectedSpells] = useState(preSelectedSpells);
   const [filterOptions, setFilterOptions] = useState({});
 
   useEffect(() => {
@@ -69,6 +69,10 @@ const AllSpells = () => {
 
     fetchSpells();
   }, []);
+
+  useEffect(() => {
+    setSelectedSpells(preSelectedSpells);
+  }, [preSelectedSpells]);
 
   const applyFilters = (newFilters) => {
     const filtered = spells.filter((spell) => {

@@ -5,7 +5,7 @@ import Modal from "../Modal/Modal";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import LoginForm from "../LoginForm/LoginForm";
 
-const Header = ({ resetCategory, isAuthenticated, user }) => {
+const Header = ({ resetCategory, isAuthenticated, user, onCollectionSelect }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(""); // Тип модального окна ("signup" или "signin")
 
@@ -47,7 +47,7 @@ const Header = ({ resetCategory, isAuthenticated, user }) => {
         </div>
         <div className="header__auth">
           {isAuthenticated ? (
-            <ProfileMenu user={user} />
+            <ProfileMenu user={user} onCollectionSelect={onCollectionSelect} />
           ) : (
             <>
               <button className="auth__button" onClick={handleSignUpClick}>

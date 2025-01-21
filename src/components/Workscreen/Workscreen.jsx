@@ -18,12 +18,12 @@ const SubcategoryContent = ({ activeSubcategory }) => {
   return subcategoryComponents[activeSubcategory] || <div>Подкатегория не выбрана</div>;
 };
 
-const Workscreen = ({ activeCategory, activeSubcategory }) => {
+const Workscreen = ({ activeCategory, activeSubcategory, selectedSpells }) => {
   const categoryComponents = {
-    "Заклинания": <AllSpells />,
+    "Заклинания": <AllSpells preSelectedSpells={selectedSpells} />,
     "Персонажи": <div>Контент для "Персонажи"</div>,
     "Бестиарий": <div>Контент для "Бестиарий"</div>,
-    "Инструменты мастера":<div>Контент для "Инструменты мастера"</div>,
+    "Инструменты мастера": <div>Контент для "Инструменты мастера"</div>,
   };
 
   return (

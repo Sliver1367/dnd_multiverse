@@ -11,6 +11,7 @@ const DndMultiverse = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [selectedSpells, setSelectedSpells] = useState([]);
 
   // Отслеживание состояния авторизации пользователя
   useEffect(() => {
@@ -39,6 +40,13 @@ const DndMultiverse = () => {
   const resetCategory = () => {
     setSelectedCategory(null);
     setSelectedSubcategory(null);
+    setSelectedSpells([]);
+  };
+
+  const handleCollectionSelect = (spells, category) => {
+    setSelectedSpells(spells);
+    setSelectedCategory(category); // Устанавливаем категорию "Заклинания"
+    setSelectedSubcategory(null);
   };
 
   return (
@@ -47,12 +55,14 @@ const DndMultiverse = () => {
         resetCategory={resetCategory}
         isAuthenticated={isAuthenticated}
         user={user}
+        onCollectionSelect={handleCollectionSelect}
       />
       <Categories onCategorySelect={handleCategorySelect} />
       <div className="workscreen">
         <Workscreen
           activeCategory={selectedCategory}
           activeSubcategory={selectedSubcategory}
+          selectedSpells={selectedSpells}
         />
       </div>
       <Footer />
