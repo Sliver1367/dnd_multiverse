@@ -23,7 +23,7 @@
 }
 
 .modal-content {
-  width: 90%;
+  width: 100%;
   max-height: 80vh; /* Ограничиваем высоту */
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
   padding: 20px;

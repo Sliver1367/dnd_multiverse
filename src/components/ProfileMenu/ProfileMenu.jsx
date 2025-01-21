@@ -1,20 +1,38 @@
-import React, { useState } from "react";
-import { getAuth, signOut } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import "./ProfileMenu.css";
 
-const ProfileMenu = ({ user }) => {
+const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const auth = getAuth();
+
+  // Следим за изменением состояния авторизации
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser({
+          displayName: currentUser.displayName || "User",
+          email: currentUser.email,
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const handleLogout = () => {
-    const auth = getAuth();
     signOut(auth)
       .then(() => {
         console.log("User signed out successfully");
-        // Здесь вы можете добавить логику для обработки выхода, например, перенаправление на главную страницу
+        setUser(null); // Сбрасываем данные пользователя
       })
       .catch((error) => {
         console.error("Error signing out:", error);
@@ -24,7 +42,7 @@ const ProfileMenu = ({ user }) => {
   return (
     <div className="profile-menu">
       <button className="profile-menu__button" onClick={toggleMenu}>
-        {user?.displayName || user?.username || "Profile"}
+        {user?.displayName || "Profile"}
       </button>
       {isOpen && (
         <ul className="profile-menu__list">
