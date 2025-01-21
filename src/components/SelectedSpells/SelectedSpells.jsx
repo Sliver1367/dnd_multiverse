@@ -34,7 +34,7 @@ const SelectedSpells = ({ selectedSpells, onResetSpells, onRemoveSpell }) => {
       alert("Введите название коллекции!");
       return;
     }
-
+  
     setSaving(true);
     try {
       const spellsCollection = collection(db, "userSpells");
@@ -47,6 +47,7 @@ const SelectedSpells = ({ selectedSpells, onResetSpells, onRemoveSpell }) => {
       alert("Коллекция успешно сохранена!");
       setModalOpen(false);
       setCollectionName("");
+      // Теперь `onSnapshot` в `ProfileMenu` автоматически обновит данные
     } catch (error) {
       console.error("Ошибка при сохранении коллекции:", error);
       alert("Не удалось сохранить коллекцию.");

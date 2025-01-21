@@ -5,7 +5,7 @@ import {
   collection,
   query,
   where,
-  getDocs,
+  onSnapshot,
   deleteDoc,
   doc,
   updateDoc,
@@ -27,7 +27,7 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
       .catch((error) => console.error("Error signing out:", error));
   };
 
-  const fetchUserCollections = async () => {
+  const fetchUserCollections = () => {
     if (!user) return;
 
     const q = query(
@@ -35,20 +35,21 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
       where("userId", "==", user.uid)
     );
 
-    try {
-      const querySnapshot = await getDocs(q);
+    // Слушатель данных для автоматического обновления
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const collections = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setUserCollections(collections);
-    } catch (error) {
-      console.error("Ошибка загрузки коллекций:", error);
-    }
+    });
+
+    return unsubscribe; // Возвращаем функцию для отписки
   };
 
   useEffect(() => {
-    fetchUserCollections();
+    const unsubscribe = fetchUserCollections();
+    return () => unsubscribe && unsubscribe();
   }, [user]);
 
   const handleCollectionSelect = (collection) => {
@@ -59,7 +60,6 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
   const handleDeleteCollection = async (id) => {
     try {
       await deleteDoc(doc(db, "userSpells", id));
-      setUserCollections(userCollections.filter((collection) => collection.id !== id));
     } catch (error) {
       console.error("Ошибка при удалении коллекции:", error);
     }
@@ -73,11 +73,6 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
   const handleSaveEdit = async (id) => {
     try {
       await updateDoc(doc(db, "userSpells", id), { collectionName: newName });
-      setUserCollections(
-        userCollections.map((collection) =>
-          collection.id === id ? { ...collection, collectionName: newName } : collection
-        )
-      );
       setEditingCollectionId(null);
     } catch (error) {
       console.error("Ошибка при обновлении коллекции:", error);
@@ -106,16 +101,17 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
                           value={newName}
                           onChange={(e) => setNewName(e.target.value)}
                         />
-                        <button
-                          onClick={() => handleSaveEdit(collection.id)}
-                        >
+                        <button onClick={() => handleSaveEdit(collection.id)}>
                           Сохранить
                         </button>
                       </div>
                     ) : (
                       <>
-                        <span onClick={() => handleCollectionSelect(collection)}>
-                          {collection.collectionName} ({collection.spells.length})
+                        <span
+                          onClick={() => handleCollectionSelect(collection)}
+                        >
+                          {collection.collectionName} (
+                          {collection.spells.length})
                         </span>
                         <button
                           className="profile-menu__edit"
