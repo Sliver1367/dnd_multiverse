@@ -56,6 +56,70 @@
   background-color: #870505;
 }
 
+/* Поиск по названию с кнопкой сброса */
+.input-with-reset {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-reset input {
+  flex: 1;
+  padding: 8px 16px;
+  border: 1px solid #ae0707;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  outline: none;
+}
+
+.reset-text-button {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #ae0707;
+  cursor: pointer;
+  padding: 0;
+}
+
+.reset-text-button:hover {
+  color: #870505;
+}
+
+/* Кнопки компонентов (V, S, M) */
+.components-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.component-button {
+  flex: 1;
+  padding: 8px 0;
+  border: 1px solid #ae0707;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: #ae0707;
+  background-color: #fff5f5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.component-button.active {
+  background-color: #ae0707;
+  color: #fff;
+}
+
+.component-button:hover {
+  background-color: #870505;
+  color: #fff;
+}
+
+/* Кнопка сброса фильтров */
 .reset-button {
   padding: 10px 16px;
   border: none;

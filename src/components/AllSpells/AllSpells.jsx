@@ -81,32 +81,34 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
       const hasComponentV = spell.componentV === "TRUE";
       const hasComponentS = spell.componentS === "TRUE";
       const hasComponentM = spell.componentM && spell.componentM.trim().length > 0;
-
+  
       const classKey = Object.keys(classMapping).find(
         (key) => classMapping[key] === newFilters.class
       );
-
+  
       return (
-        (!newFilters.level || spell.level === newFilters.level) &&
+        (!newFilters.name ||
+          spell.titleRus.toLowerCase().includes(newFilters.name.toLowerCase())) &&
+        (!newFilters.level || spell.level === parseInt(newFilters.level, 10)) &&
         (!newFilters.ritual || isRitual === newFilters.ritual) &&
-        (!newFilters.castingTime ||
-          spell.castingTimeRus === newFilters.castingTime) &&
+        (!newFilters.castingTime || spell.castingTimeRus === newFilters.castingTime) &&
         (!newFilters.rangeFt || spell.rangeFt === newFilters.rangeFt) &&
+        // Логика для компонентов
         (!newFilters.componentV || hasComponentV) &&
         (!newFilters.componentS || hasComponentS) &&
         (!newFilters.componentM || hasComponentM) &&
-        (!newFilters.concentration ||
-          isConcentration === newFilters.concentration) &&
+        (!(newFilters.componentV && newFilters.componentS) ||
+          (hasComponentV && hasComponentS)) &&
+        (!newFilters.concentration || isConcentration === newFilters.concentration) &&
         (!newFilters.duration || spell.durationRus === newFilters.duration) &&
-        (!newFilters.onHigherLevel ||
-          spell.onHigherLevel === newFilters.onHigherLevel) &&
+        (!newFilters.onHigherLevel || spell.onHigherLevel === newFilters.onHigherLevel) &&
         (!newFilters.school ||
           spell.schoolRus === newFilters.school ||
           spell.school === newFilters.school) &&
         (!newFilters.class || (classKey && spell[classKey] === "TRUE"))
       );
     });
-
+  
     setFilteredSpells(filtered);
   };
 
