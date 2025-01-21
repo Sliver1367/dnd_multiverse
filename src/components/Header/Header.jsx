@@ -1,12 +1,18 @@
 import React from "react";
 import "./Header.css";
+import ProfileMenu from "../ProfileMenu/ProfileMenu";
 
-
-const Header = () => {
+const Header = ({ resetCategory, isAuthenticated, user, onSignUpClick, onSignInClick }) => {
   return (
     <header className="header">
       <div className="header__left">
-        <span className="header__title">DND Multiverse</span>
+        <span
+          className="header__title"
+          onClick={resetCategory}
+          style={{ cursor: "pointer" }}
+        >
+          DND Multiverse
+        </span>
         <input
           type="text"
           className="header__search"
@@ -14,13 +20,21 @@ const Header = () => {
         />
       </div>
       <div className="header__auth">
-        <button className="auth__button">Sign In</button>
-        <button className="auth__button">Sign Up</button>
+        {isAuthenticated ? (
+          <ProfileMenu user={user} />
+        ) : (
+          <>
+            <button className="auth__button" onClick={onSignUpClick}>
+              Sign Up
+            </button>
+            <button className="auth__button" onClick={onSignInClick}>
+              Sign In
+            </button>
+          </>
+        )}
       </div>
     </header>
   );
 };
 
 export default Header;
-
-  

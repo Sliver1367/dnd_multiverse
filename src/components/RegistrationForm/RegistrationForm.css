@@ -1,0 +1,57 @@
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px; /* Ограничиваем ширину формы */
+    margin: 0 auto; /* Центрируем форму */
+    padding: 20px;
+    background-color: #f5f5f5; /* Светлый фон */
+    border: 1px solid #ccc; /* Легкая граница */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для объема */
+  }
+  
+  .registration-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+  }
+  
+  .registration-form input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .registration-form input:focus {
+    border-color: #007bff; /* Синяя рамка при фокусе */
+    outline: none;
+  }
+  
+  .registration-form button {
+    padding: 10px;
+    background-color: #007bff; /* Синий фон кнопки */
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .registration-form button:hover {
+    background-color: #0056b3; /* Темно-синий при наведении */
+  }
+  
+  .registration-form .error {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
