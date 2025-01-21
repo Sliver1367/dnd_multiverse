@@ -1,0 +1,13 @@
+.app {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение компонентов */
+    min-height: 100vh; /* Минимальная высота для заполнения экрана */
+    background-color: #f0f0f0; /* Светлый фон приложения */
+    font-family: 'Arial', sans-serif; /* Базовый шрифт */
+  }
+  
+  .workscreen {
+    flex: 1; /* Заполняет доступное пространство между Header и Footer */
+    padding: 20px; /* Отступы внутри рабочего пространства */
+    overflow-y: auto; /* Скроллинг, если содержимое превышает высоту */
+  }

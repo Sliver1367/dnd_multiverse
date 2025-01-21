@@ -7,6 +7,8 @@ import Modal from "../Modal/Modal";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import LoginForm from "../LoginForm/LoginForm"; // Новый компонент для логина
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import "./DndMultiverse.css";
+
 
 const DndMultiverse = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
