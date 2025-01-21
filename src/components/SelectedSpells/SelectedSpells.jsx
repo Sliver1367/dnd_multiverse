@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PrintSpells from "../PrintSpells/PrintSpells";
 import Modal from "../Modal/Modal";
 import "./SelectedSpells.css";
-import { db } from "../../firebase/firebaseConfig"; 
+import { db } from "../../firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from "../../firebase/firebaseConfig";
 
@@ -91,14 +91,16 @@ const SelectedSpells = ({ selectedSpells, onResetSpells, onRemoveSpell }) => {
           onClick={handlePrintSpells}
           disabled={selectedSpells.length === 0}
         >
-          Печать заклинаний
+          Сохранить в PDF
         </button>
         <button
-          className={`save-button ${!isLoggedIn ? "disabled" : ""}`}
+          className={`save-button ${
+            !isLoggedIn || selectedSpells.length === 0 ? "disabled" : ""
+          }`}
           onClick={handleSaveSpells}
           disabled={!isLoggedIn || selectedSpells.length === 0 || isSaving}
         >
-          {isSaving ? "Сохранение..." : "Сохранить заклинания"}
+          {isSaving ? "Сохранение..." : "Сохранить в коллекцию"}
         </button>
       </div>
       <Modal isVisible={isModalOpen} onClose={() => setModalOpen(false)}>

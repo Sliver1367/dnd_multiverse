@@ -61,23 +61,31 @@
   transform: scale(1.2);
 }
 
-/* Кнопки сброса и печати */
+/* Контейнер для кнопок */
 .buttons-container {
   display: flex;
   gap: 10px;
   margin-top: 20px;
 }
 
+/* Общие стили для кнопок */
 .reset-button,
-.print-button {
+.print-button,
+.save-button {
   padding: 10px 20px;
+  height: 50px; /* Одинаковая высота для всех кнопок */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
+/* Кнопка сброса */
 .reset-button {
   background-color: #ae0707;
   color: #fff;
@@ -87,6 +95,13 @@
   background-color: #870505;
 }
 
+.reset-button:disabled {
+  background-color: #d3d3d3; /* Серый цвет для неактивной кнопки */
+  color: #a9a9a9;
+  cursor: not-allowed;
+}
+
+/* Кнопка печати */
 .print-button {
   background-color: #ae0707;
   color: #fff;
@@ -96,24 +111,24 @@
   background-color: #870505;
 }
 
+.print-button:disabled {
+  background-color: #d3d3d3; /* Серый цвет для неактивной кнопки */
+  color: #a9a9a9;
+  cursor: not-allowed;
+}
+
+/* Кнопка сохранения */
 .save-button {
-  padding: 10px 20px;
-  margin: 10px 0;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #ae0707; /* Зелёный цвет для активной кнопки */
+  background-color: #ae0707;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .save-button:hover {
-  background-color: #870505; /* Более тёмный зелёный при наведении */
+  background-color: #870505;
 }
 
-.save-button.disabled {
+.save-button.disabled,
+.save-button:disabled {
   background-color: #d3d3d3; /* Серый цвет для неактивной кнопки */
   color: #a9a9a9;
   cursor: not-allowed;
