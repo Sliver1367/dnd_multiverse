@@ -140,36 +140,34 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
 
       {/* Компоненты */}
       <div className="components-filters">
-        <label>
-          Компоненты:
-          <div className="components-buttons">
-            <button
-              className={`component-button ${
-                filters.componentV ? "active" : ""
-              }`}
-              onClick={() => toggleCheckbox("componentV")}
-            >
-              В
-            </button>
-            <button
-              className={`component-button ${
-                filters.componentS ? "active" : ""
-              }`}
-              onClick={() => toggleCheckbox("componentS")}
-            >
-              С
-            </button>
-            <button
-              className={`component-button ${
-                filters.componentM ? "active" : ""
-              }`}
-              onClick={() => toggleCheckbox("componentM")}
-            >
-              М
-            </button>
-          </div>
-        </label>
-      </div>
+  <label>Компоненты:</label>
+  <div className="components-buttons">
+    <button
+      className={`component-button ${
+        filters.componentV ? "active" : ""
+      }`}
+      onClick={() => toggleCheckbox("componentV")}
+    >
+      V
+    </button>
+    <button
+      className={`component-button ${
+        filters.componentS ? "active" : ""
+      }`}
+      onClick={() => toggleCheckbox("componentS")}
+    >
+      S
+    </button>
+    <button
+      className={`component-button ${
+        filters.componentM ? "active" : ""
+      }`}
+      onClick={() => toggleCheckbox("componentM")}
+    >
+      M
+    </button>
+  </div>
+</div>
 
       {/* Ритуал */}
       <label className="checkbox-label">

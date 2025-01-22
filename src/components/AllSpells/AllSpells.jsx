@@ -34,17 +34,26 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
       setSpells(spellsData);
       setFilteredSpells(spellsData);
 
-      const uniqueLevels = [...new Set(spellsData.map((spell) => spell.level))].sort();
+      const uniqueLevels = [
+        ...new Set(spellsData.map((spell) => spell.level)),
+      ].sort();
+
       const uniqueCastingTimes = [
         ...new Set(spellsData.map((spell) => spell.castingTimeRus)),
       ].sort();
+
       const uniqueDurations = [
         ...new Set(spellsData.map((spell) => spell.durationRus)),
       ].sort();
+
       const uniqueSchools = [
         ...new Set(spellsData.map((spell) => spell.schoolRus || spell.school)),
       ].sort();
-      const uniqueRanges = [...new Set(spellsData.map((spell) => spell.rangeFt))].sort();
+
+      const uniqueRanges = [
+        ...new Set(spellsData.map((spell) => spell.rangeFt)),
+      ].sort();
+
       const uniqueClasses = [
         ...new Set(
           spellsData.flatMap((spell) =>
@@ -57,6 +66,17 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         .sort()
         .map((cls) => classMapping[cls] || cls);
 
+      // Уникальные компоненты (componentV, componentS, componentM)
+      const uniqueComponents = {
+        componentV: spellsData.some(
+          (spell) => spell.componentV === true),
+        componentS: spellsData.some(
+          (spell) => spell.componentS === true),
+        componentM: spellsData.some(
+          (spell) => spell.componentM && spell.componentM.trim() !== ""
+        ),
+      };
+
       setFilterOptions({
         levels: uniqueLevels,
         castingTimes: uniqueCastingTimes,
@@ -64,6 +84,7 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         schools: uniqueSchools,
         ranges: uniqueRanges,
         classes: uniqueClasses,
+        components: uniqueComponents, // добавляем сюда
       });
     };
 
@@ -78,37 +99,37 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
     const filtered = spells.filter((spell) => {
       const isRitual = spell.ritual === "TRUE";
       const isConcentration = spell.concentration === "TRUE";
-      const hasComponentV = spell.componentV === "TRUE";
-      const hasComponentS = spell.componentS === "TRUE";
-      const hasComponentM = spell.componentM && spell.componentM.trim().length > 0;
-  
-      const classKey = Object.keys(classMapping).find(
-        (key) => classMapping[key] === newFilters.class
-      );
-  
+
+      const passesComponentV =
+        !newFilters.componentV || spell.componentV === true;
+      const passesComponentS =
+        !newFilters.componentS || spell.componentS === true;
+      const passesComponentM =
+        !newFilters.componentM ||
+        (spell.componentM && spell.componentM.trim() !== "");
+
       return (
         (!newFilters.name ||
-          spell.titleRus.toLowerCase().includes(newFilters.name.toLowerCase())) &&
+          spell.titleRus
+            ?.toLowerCase()
+            .includes(newFilters.name.toLowerCase())) &&
         (!newFilters.level || spell.level === parseInt(newFilters.level, 10)) &&
         (!newFilters.ritual || isRitual === newFilters.ritual) &&
-        (!newFilters.castingTime || spell.castingTimeRus === newFilters.castingTime) &&
+        (!newFilters.castingTime ||
+          spell.castingTimeRus === newFilters.castingTime) &&
         (!newFilters.rangeFt || spell.rangeFt === newFilters.rangeFt) &&
-        // Логика для компонентов
-        (!newFilters.componentV || hasComponentV) &&
-        (!newFilters.componentS || hasComponentS) &&
-        (!newFilters.componentM || hasComponentM) &&
-        (!(newFilters.componentV && newFilters.componentS) ||
-          (hasComponentV && hasComponentS)) &&
-        (!newFilters.concentration || isConcentration === newFilters.concentration) &&
         (!newFilters.duration || spell.durationRus === newFilters.duration) &&
-        (!newFilters.onHigherLevel || spell.onHigherLevel === newFilters.onHigherLevel) &&
         (!newFilters.school ||
           spell.schoolRus === newFilters.school ||
           spell.school === newFilters.school) &&
-        (!newFilters.class || (classKey && spell[classKey] === "TRUE"))
+        passesComponentV && 
+        passesComponentS &&
+        passesComponentM &&
+        (!newFilters.concentration ||
+          isConcentration === newFilters.concentration)
       );
     });
-  
+
     setFilteredSpells(filtered);
   };
 
@@ -144,7 +165,9 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
             <SpellCard
               key={index}
               spell={spell}
-              isSelected={selectedSpells.some((s) => s.titleRus === spell.titleRus)}
+              isSelected={selectedSpells.some(
+                (s) => s.titleRus === spell.titleRus
+              )}
               onSelect={() => toggleSelectSpell(spell)}
             />
           ))}
