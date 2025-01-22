@@ -188,7 +188,7 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
             М
           </label>
         </div>
-        <button onClick={resetComponentFilters}>
+        <button className="reset-filter" onClick={resetComponentFilters}>
           Сбросить фильтр компонентов
         </button>
       </div>
@@ -223,7 +223,7 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
         </select>
       </label>
       {/* Сброс всех фильтров */}
-      <button className="reset-button" onClick={handleReset}>
+      <button className="reset-filter" onClick={handleReset}>
         Сбросить фильтры
       </button>
     </div>

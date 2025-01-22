@@ -89,38 +89,61 @@
   color: #870505;
 }
 
-/* Кнопки компонентов (V, S, M) */
-.components-buttons {
+.components-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid #ae0707;
+  border-radius: 16px;
+  background-color: #fff5f5;
+  max-width: 300px;
+}
+
+.components-filters label {
+  font-weight: bold;
+  color: #ae0707;
+  font-size: 14px;
+}
+
+.components-checkboxes {
   display: flex;
   gap: 8px;
 }
 
-.component-button {
-  flex: 1;
-  padding: 8px 0;
-  border: 1px solid #ae0707;
-  border-radius: 8px;
-  font-size: 14px;
+.components-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: bold;
-  text-align: center;
   color: #ae0707;
-  background-color: #fff5f5;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.components-checkboxes input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ae0707;
+  border-radius: 4px;
+  appearance: none;
+  background-color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.component-button.active {
+.components-checkboxes input[type="checkbox"]:checked {
   background-color: #ae0707;
-  color: #fff;
 }
 
-.component-button:hover {
+.components-checkboxes input[type="checkbox"]:hover {
   background-color: #870505;
-  color: #fff;
 }
+
+
 
 /* Кнопка сброса фильтров */
-.reset-button {
+.reset-filter {
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
@@ -131,6 +154,6 @@
   transition: background-color 0.3s ease;
 }
 
-.reset-button:hover {
+.reset-filter:hover {
   background-color: #870505;
 }
