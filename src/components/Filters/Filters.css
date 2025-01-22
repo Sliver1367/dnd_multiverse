@@ -91,7 +91,6 @@
 
 .components-filters {
   display: flex;
-  flex-direction: column;
   gap: 16px;
   padding: 20px;
   border: 2px solid #ae0707;

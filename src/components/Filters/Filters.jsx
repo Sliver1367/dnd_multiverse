@@ -188,10 +188,10 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
             М
           </label>
         </div>
-        <button className="reset-filter" onClick={resetComponentFilters}>
-          Сбросить фильтр компонентов
-        </button>
       </div>
+      <button className="reset-filter" onClick={resetComponentFilters}>
+        Сбросить фильтр компонентов
+      </button>
       {/* Ритуал */}
       <label className="checkbox-label">
         Ритуал:
