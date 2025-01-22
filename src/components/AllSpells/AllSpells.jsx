@@ -58,24 +58,13 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         ...new Set(
           spellsData.flatMap((spell) =>
             Object.keys(spell).filter(
-              (key) => key.startsWith("class") && spell[key] === "TRUE"
+              (key) => key.startsWith("class") && spell[key] === true
             )
           )
         ),
       ]
         .sort()
         .map((cls) => classMapping[cls] || cls);
-
-      // Уникальные компоненты (componentV, componentS, componentM)
-      const uniqueComponents = {
-        componentV: spellsData.some(
-          (spell) => spell.componentV === true),
-        componentS: spellsData.some(
-          (spell) => spell.componentS === true),
-        componentM: spellsData.some(
-          (spell) => spell.componentM && spell.componentM.trim() !== ""
-        ),
-      };
 
       setFilterOptions({
         levels: uniqueLevels,
@@ -84,7 +73,6 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         schools: uniqueSchools,
         ranges: uniqueRanges,
         classes: uniqueClasses,
-        components: uniqueComponents, // добавляем сюда
       });
     };
 
@@ -97,8 +85,8 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
 
   const applyFilters = (newFilters) => {
     const filtered = spells.filter((spell) => {
-      const isRitual = spell.ritual === "TRUE";
-      const isConcentration = spell.concentration === "TRUE";
+      const isRitual = spell.ritual === true;
+      const isConcentration = spell.concentration === true;
 
       const passesComponentV =
         !newFilters.componentV || spell.componentV === true;
@@ -107,6 +95,14 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
       const passesComponentM =
         !newFilters.componentM ||
         (spell.componentM && spell.componentM.trim() !== "");
+
+      const belongsToClass =
+        !newFilters.class ||
+        Object.keys(classMapping).some(
+          (classKey) =>
+            spell[classKey] === true &&
+            classMapping[classKey] === newFilters.class
+        );
 
       return (
         (!newFilters.name ||
@@ -122,11 +118,12 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         (!newFilters.school ||
           spell.schoolRus === newFilters.school ||
           spell.school === newFilters.school) &&
-        passesComponentV && 
+        passesComponentV &&
         passesComponentS &&
         passesComponentM &&
         (!newFilters.concentration ||
-          isConcentration === newFilters.concentration)
+          isConcentration === newFilters.concentration) &&
+        belongsToClass
       );
     });
 

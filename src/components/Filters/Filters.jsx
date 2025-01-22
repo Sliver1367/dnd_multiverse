@@ -71,7 +71,6 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           )}
         </div>
       </label>
-
       {/* Уровень */}
       <label>
         Уровень:
@@ -90,7 +89,6 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
-
       {/* Время накладывания */}
       <label>
         Время накладывания:
@@ -107,7 +105,6 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
-
       {/* Длительность */}
       <label>
         Длительность:
@@ -124,7 +121,6 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
-
       {/* Школа заклинаний */}
       <label>
         Школа заклинаний:
@@ -137,38 +133,30 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
-
       {/* Компоненты */}
       <div className="components-filters">
-  <label>Компоненты:</label>
-  <div className="components-buttons">
-    <button
-      className={`component-button ${
-        filters.componentV ? "active" : ""
-      }`}
-      onClick={() => toggleCheckbox("componentV")}
-    >
-      V
-    </button>
-    <button
-      className={`component-button ${
-        filters.componentS ? "active" : ""
-      }`}
-      onClick={() => toggleCheckbox("componentS")}
-    >
-      S
-    </button>
-    <button
-      className={`component-button ${
-        filters.componentM ? "active" : ""
-      }`}
-      onClick={() => toggleCheckbox("componentM")}
-    >
-      M
-    </button>
-  </div>
-</div>
-
+        <label>Компоненты:</label>
+        <div className="components-buttons">
+          <button
+            className={`component-button ${filters.componentV ? "active" : ""}`}
+            onClick={() => toggleCheckbox("componentV")}
+          >
+            V
+          </button>
+          <button
+            className={`component-button ${filters.componentS ? "active" : ""}`}
+            onClick={() => toggleCheckbox("componentS")}
+          >
+            S
+          </button>
+          <button
+            className={`component-button ${filters.componentM ? "active" : ""}`}
+            onClick={() => toggleCheckbox("componentM")}
+          >
+            M
+          </button>
+        </div>
+      </div>
       {/* Ритуал */}
       <label className="checkbox-label">
         Ритуал:
@@ -177,7 +165,6 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           onClick={() => toggleCheckbox("ritual")}
         ></div>
       </label>
-
       {/* Концентрация */}
       <label className="checkbox-label">
         Концентрация:
@@ -188,7 +175,18 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           onClick={() => toggleCheckbox("concentration")}
         ></div>
       </label>
-
+      {/* Классы */}
+      <label>
+        Класс:
+        <select name="class" value={filters.class} onChange={handleChange}>
+          <option value="">Все</option>
+          {filterOptions.classes?.map((cls) => (
+            <option key={cls} value={cls}>
+              {cls}
+            </option>
+          ))}
+        </select>
+      </label>
       {/* Сброс всех фильтров */}
       <button className="reset-button" onClick={handleReset}>
         Сбросить фильтры
