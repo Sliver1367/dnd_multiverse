@@ -92,9 +92,6 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         !newFilters.componentV || spell.componentS !== true;
       const passesComponentS =
         !newFilters.componentS || spell.componentV !== true;
-      const passesComponentVS =
-        (!newFilters.componentS || spell.componentV !== true) &&
-        (!newFilters.componentV || spell.componentS !== true);
       const passesComponentM =
         !newFilters.componentM ||
         (spell.componentM && spell.componentM.trim() !== "");
@@ -122,7 +119,7 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
           spell.schoolRus === newFilters.school ||
           spell.school === newFilters.school) &&
         passesComponentV &&
-        passesComponentS && passesComponentVS &&
+        passesComponentS &&
         passesComponentM &&
         (!newFilters.concentration ||
           isConcentration === newFilters.concentration) &&

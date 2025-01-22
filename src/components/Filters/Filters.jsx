@@ -28,6 +28,32 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
     onApplyFilters(newFilters);
   };
 
+  const handleComponentChange = (name) => {
+    const newFilters = {
+      componentV: false,
+      componentS: false,
+      componentM: false,
+      [name]: true,
+    };
+    setFilters({ ...filters, ...newFilters });
+    onApplyFilters({ ...filters, ...newFilters });
+  };
+
+  const resetComponentFilters = () => {
+    setFilters({
+      ...filters,
+      componentV: false,
+      componentS: false,
+      componentM: false,
+    });
+    onApplyFilters({
+      ...filters,
+      componentV: false,
+      componentS: false,
+      componentM: false,
+    });
+  };
+
   const toggleCheckbox = (name) => {
     const newFilters = {
       ...filters,
@@ -136,32 +162,35 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
       {/* Компоненты */}
       <div className="components-filters">
         <label>Компоненты:</label>
-        <div className="components-buttons">
-          <button
-            className={`component-button ${filters.componentV ? "active" : ""}`}
-            onClick={() => toggleCheckbox("componentV")}
-          >
+        <div className="components-checkboxes">
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.componentV}
+              onChange={() => handleComponentChange("componentV")}
+            />
             В
-          </button>
-          <button
-            className={`component-button ${filters.componentS ? "active" : ""}`}
-            onClick={() => toggleCheckbox("componentS")}
-          >
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.componentS}
+              onChange={() => handleComponentChange("componentS")}
+            />
             С
-          </button>
-          <button
-            className={`component-button ${filters.componentS ? "active" : ""}`}
-            onClick={() => toggleCheckbox("componentS")}
-          >
-            ВС
-          </button>
-          <button
-            className={`component-button ${filters.componentM ? "active" : ""}`}
-            onClick={() => toggleCheckbox("componentM")}
-          >
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.componentM}
+              onChange={() => handleComponentChange("componentM")}
+            />
             М
-          </button>
+          </label>
         </div>
+        <button onClick={resetComponentFilters}>
+          Сбросить фильтр компонентов
+        </button>
       </div>
       {/* Ритуал */}
       <label className="checkbox-label">
