@@ -141,19 +141,25 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
             className={`component-button ${filters.componentV ? "active" : ""}`}
             onClick={() => toggleCheckbox("componentV")}
           >
-            V
+            В
           </button>
           <button
             className={`component-button ${filters.componentS ? "active" : ""}`}
             onClick={() => toggleCheckbox("componentS")}
           >
-            S
+            С
+          </button>
+          <button
+            className={`component-button ${filters.componentS ? "active" : ""}`}
+            onClick={() => toggleCheckbox("componentS")}
+          >
+            ВС
           </button>
           <button
             className={`component-button ${filters.componentM ? "active" : ""}`}
             onClick={() => toggleCheckbox("componentM")}
           >
-            M
+            М
           </button>
         </div>
       </div>
