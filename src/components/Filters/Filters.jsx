@@ -8,59 +8,55 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
     ritual: false,
     castingTime: "",
     rangeFt: "",
-    componentV: false,
-    componentS: false,
-    componentM: false,
+    componentV: null,
+    componentS: null,
+    componentM: null,
     concentration: false,
     duration: "",
     school: "",
+    class: "",
   };
 
   const [filters, setFilters] = useState(initialFilters);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const newFilters = {
-      ...filters,
-      [name]: type === "checkbox" ? checked : value,
-    };
-    setFilters(newFilters);
-    onApplyFilters(newFilters);
+    setFilters((prev) => {
+      const updatedFilters = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+      onApplyFilters(updatedFilters);
+      return updatedFilters;
+    });
   };
 
-  const handleComponentChange = (name) => {
-    const newFilters = {
-      componentV: false,
-      componentS: false,
-      componentM: false,
-      [name]: true,
-    };
-    setFilters({ ...filters, ...newFilters });
-    onApplyFilters({ ...filters, ...newFilters });
+  const toggleComponentFilter = (component) => {
+    setFilters((prev) => {
+      const newValue =
+        prev[component] === null ? true : prev[component] === true ? false : null;
+
+      const updatedFilters = {
+        ...prev,
+        [component]: newValue,
+      };
+
+      onApplyFilters(updatedFilters);
+      return updatedFilters;
+    });
   };
 
   const resetComponentFilters = () => {
-    setFilters({
-      ...filters,
-      componentV: false,
-      componentS: false,
-      componentM: false,
+    setFilters((prev) => {
+      const updatedFilters = {
+        ...prev,
+        componentV: null,
+        componentS: null,
+        componentM: null,
+      };
+      onApplyFilters(updatedFilters);
+      return updatedFilters;
     });
-    onApplyFilters({
-      ...filters,
-      componentV: false,
-      componentS: false,
-      componentM: false,
-    });
-  };
-
-  const toggleCheckbox = (name) => {
-    const newFilters = {
-      ...filters,
-      [name]: !filters[name],
-    };
-    setFilters(newFilters);
-    onApplyFilters(newFilters);
   };
 
   const handleReset = () => {
@@ -97,16 +93,11 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           )}
         </div>
       </label>
+
       {/* Уровень */}
       <label>
         Уровень:
-        <select
-          name="level"
-          value={filters.level}
-          onChange={(e) => {
-            handleChange(e);
-          }}
-        >
+        <select name="level" value={filters.level} onChange={handleChange}>
           <option value="">Все</option>
           {filterOptions.levels?.map((level) => (
             <option key={level} value={level}>
@@ -115,6 +106,7 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
+
       {/* Время накладывания */}
       <label>
         Время накладывания:
@@ -131,14 +123,11 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
+
       {/* Длительность */}
       <label>
         Длительность:
-        <select
-          name="duration"
-          value={filters.duration}
-          onChange={handleChange}
-        >
+        <select name="duration" value={filters.duration} onChange={handleChange}>
           <option value="">Все</option>
           {filterOptions.durations?.map((duration) => (
             <option key={duration} value={duration}>
@@ -147,6 +136,7 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
+
       {/* Школа заклинаний */}
       <label>
         Школа заклинаний:
@@ -159,57 +149,48 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
+
       {/* Компоненты */}
       <div className="components-filters">
         <label>Компоненты:</label>
         <div className="components-checkboxes">
-          <label>
-            <input
-              type="checkbox"
-              checked={filters.componentV}
-              onChange={() => handleComponentChange("componentV")}
-            />
-            В
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={filters.componentS}
-              onChange={() => handleComponentChange("componentS")}
-            />
-            С
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={filters.componentM}
-              onChange={() => handleComponentChange("componentM")}
-            />
-            М
-          </label>
+          {["componentV", "componentS", "componentM"].map((comp) => (
+            <button
+              key={comp}
+              className={`component-toggle ${filters[comp] === true ? "plus" : filters[comp] === false ? "minus" : ""}`}
+              onClick={() => toggleComponentFilter(comp)}
+            >
+              {comp === "componentV" ? "В" : comp === "componentS" ? "С" : "М"}
+              {filters[comp] === true ? " +" : filters[comp] === false ? " -" : ""}
+            </button>
+          ))}
         </div>
       </div>
+
       <button className="reset-filter" onClick={resetComponentFilters}>
         Сбросить фильтр компонентов
       </button>
+
       {/* Ритуал */}
       <label className="checkbox-label">
         Ритуал:
         <div
           className={`checkbox-button ${filters.ritual ? "checked" : ""}`}
-          onClick={() => toggleCheckbox("ritual")}
+          onClick={() => handleChange({ target: { name: "ritual", checked: !filters.ritual, type: "checkbox" } })}
         ></div>
       </label>
+
       {/* Концентрация */}
       <label className="checkbox-label">
         Концентрация:
         <div
-          className={`checkbox-button ${
-            filters.concentration ? "checked" : ""
-          }`}
-          onClick={() => toggleCheckbox("concentration")}
+          className={`checkbox-button ${filters.concentration ? "checked" : ""}`}
+          onClick={() =>
+            handleChange({ target: { name: "concentration", checked: !filters.concentration, type: "checkbox" } })
+          }
         ></div>
       </label>
+
       {/* Классы */}
       <label>
         Класс:
@@ -222,6 +203,7 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           ))}
         </select>
       </label>
+
       {/* Сброс всех фильтров */}
       <button className="reset-filter" onClick={handleReset}>
         Сбросить фильтры
