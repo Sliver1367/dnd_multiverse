@@ -157,6 +157,19 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
         </select>
       </label>
 
+      {/* Классы */}
+      <label>
+        Класс:
+        <select name="class" value={filters.class} onChange={handleChange}>
+          <option value="">Все</option>
+          {filterOptions.classes?.map((cls) => (
+            <option key={cls} value={cls}>
+              {cls}
+            </option>
+          ))}
+        </select>
+      </label>
+
       <div className="filters-container">
         {/* Компоненты и параметры */}
         <div className="components-filter-grid">
@@ -229,19 +242,6 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
           </div>
         </div>
       </div>
-
-      {/* Классы */}
-      <label>
-        Класс:
-        <select name="class" value={filters.class} onChange={handleChange}>
-          <option value="">Все</option>
-          {filterOptions.classes?.map((cls) => (
-            <option key={cls} value={cls}>
-              {cls}
-            </option>
-          ))}
-        </select>
-      </label>
 
       {/* Сброс всех фильтров */}
       <button className="reset-filter" onClick={handleReset}>

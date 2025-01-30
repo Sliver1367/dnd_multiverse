@@ -174,7 +174,7 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
   return (
     <div className="all-spells-container">
       {/* Фильтры слева */}
-      <div className="filters-container">
+      <div className="filters-con">
         <Filters filterOptions={filterOptions} onApplyFilters={applyFilters} />
       </div>
   

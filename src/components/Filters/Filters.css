@@ -2,175 +2,128 @@
 .filters-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  gap: 10px;
+  padding: 14px;
   border: 2px solid #ae0707;
-  border-radius: 16px;
-  
+  border-radius: 12px;
+  background: #fff;
+  max-width: 300px;
 }
 
 /* Заголовки фильтров */
 .filters-container label {
   display: flex;
   flex-direction: column;
+  font-size: 18px;
   font-weight: bold;
   color: #ae0707;
-  font-size: 14px;
 }
 
-/* Общие стили для чекбоксов */
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  color: #ae0707;
+/* Общие стили для инпутов и селектов */
+.filters-container input,
+.filters-container select {
+  width: 100%;
+  padding: 8px;
   font-size: 14px;
-}
-
-/* Селекторы и кнопки */
-.filters-container select,
-.filters-container .checkbox-button {
-  margin-top: 8px;
-  padding: 8px 16px;
   border: 1px solid #ae0707;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #333;
-  background-color: #fff;
-  cursor: pointer;
-  outline: none;
-  text-align: center;
-}
-
-.filters-container .checkbox-button {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  transition: all 0.3s ease;
-  background-color: #fff5f5;
-}
-
-.filters-container .checkbox-button.checked {
-  background-color: #ae0707;
-}
-
-.filters-container .checkbox-button:hover {
-  background-color: #870505;
+  border-radius: 6px;
+  background: #fff;
 }
 
 /* Поиск по названию с кнопкой сброса */
 .input-with-reset {
-  position: relative;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .input-with-reset input {
-  flex: 1;
-  padding: 8px 16px;
-  border: 1px solid #ae0707;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #333;
-  background-color: #fff;
-  outline: none;
+  padding-right: 28px;
 }
 
 .reset-text-button {
   position: absolute;
-  right: 8px;
+  right: 6px;
   background: none;
   border: none;
   font-size: 16px;
+  font-weight: bold;
   color: #ae0707;
   cursor: pointer;
-  padding: 0;
 }
 
 .reset-text-button:hover {
   color: #870505;
 }
 
-/* Блок компонентов и параметров */
-.components-filters {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-  border: 2px solid #ae0707;
-  border-radius: 16px;
-  background-color: #fff5f5;
-  max-width: 320px;
-}
-
-/* Текст заголовка компонентов */
-.components-filters label {
-  font-weight: bold;
-  color: #ae0707;
-  font-size: 14px;
-}
-
-/* Блоки фильтрации в две колонки */
+/* Компактный грид для фильтров компонентов */
 .components-filter-grid {
   display: flex;
-  gap: 20px;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
 }
 
-/* Колонки */
+/* Ровные колонки компонентов */
 .components-column {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
   align-items: center;
 }
 
-/* Заголовок колонки */
 .components-column p {
   font-weight: bold;
   color: #ae0707;
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 18px;
+  margin: 5px;
+  width: 100%;
+  text-align: center;
 }
 
 /* Общий стиль для чекбоксов */
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 16px;
+  gap: 6px;
+  font-size: 14px;
   cursor: pointer;
+  margin: auto;
 }
 
-/* Скрытие стандартного чекбокса */
+/* Скрываем стандартный чекбокс */
 .checkbox-label input {
   display: none;
 }
 
-/* Стилизация чекбокса */
+/* Стилизация кастомного чекбокса */
 .checkbox-content {
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  border: 2px solid #ae0707;
-  text-align: center;
-  line-height: 36px;
+  display: flex;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ae0707;
+  justify-content: center;
+  align-items: center;
+  line-height: 22px;
   font-weight: bold;
   cursor: pointer;
   user-select: none;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #fff;
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px;
 }
 
-/* При выборе чекбокса */
+/* Активный чекбокс */
 .checkbox-label input:checked + .checkbox-content {
   background-color: #ae0707;
   color: white;
   border-color: #870505;
 }
 
-/* Ховер */
+/* Ховер эффект */
 .checkbox-content:hover {
   background-color: #870505;
   color: white;
@@ -178,16 +131,28 @@
 
 /* Кнопка сброса фильтров */
 .reset-filter {
-  padding: 10px 16px;
+  padding: 8px;
+  font-size: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: #ae0707;
   color: white;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .reset-filter:hover {
   background-color: #870505;
+}
+
+/* Оптимизация отступов в контейнере */
+.filters-container > * {
+  margin-bottom: 6px;
+}
+
+.filters-container input,
+.filters-container select {
+  margin: 4px;
 }

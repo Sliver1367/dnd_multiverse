@@ -1,18 +1,29 @@
 .all-spells-container {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr; /* Автоматическая ширина для правого контейнера */
   gap: 20px;
   padding: 20px;
   position: relative;
+  align-items: start; /* Выравниваем элементы сверху */
 }
 
-/* Закрепляем боковые панели */
-.filters-container,
+/* Прижимаем контейнер к правому краю */
 .selected-spells-container {
+  justify-self: end; /* Прижимает его вправо */
+  max-height: 90vh;
+  overflow-y: auto;
+}
+/* Закрепляем боковые панели */
+.filters-con,
+.selected-spells-container {
+  justify-content: center; /* Центрируем карточки */
+  align-items: flex-start; /* Выравниваем карточки сверху */
+  max-width: 100%; /* Чтобы контейнер не сжимался */
+  margin: 0 auto; /* Центрирование */
   position: sticky;
   top: 20px; /* Остаются на месте при скролле */
   height: fit-content;
-  max-height: 90vh; /* Чтобы не занимали всю страницу */
+  max-height: 75vh; /* Чтобы не занимали всю страницу */
   overflow-y: auto; /* Добавляем прокрутку, если элементов много */
   border: 2px solid #ae0707;
   border-radius: 16px;
@@ -29,4 +40,8 @@
   justify-content: center;
   overflow-y: auto;
   max-height: 90vh;
+  justify-content: center; /* Центрируем карточки */
+  align-items: flex-start; /* Выравниваем карточки сверху */
+  max-width: 100%; /* Чтобы контейнер не сжимался */
+  margin: 0 auto; /* Центрирование */
 }
