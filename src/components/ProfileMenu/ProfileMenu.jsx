@@ -14,11 +14,13 @@ import "./ProfileMenu.css";
 
 const ProfileMenu = ({ user, onCollectionSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSpellListOpen, setIsSpellListOpen] = useState(false);
   const [userCollections, setUserCollections] = useState([]);
   const [editingCollectionId, setEditingCollectionId] = useState(null);
   const [newName, setNewName] = useState("");
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleSpellList = () => setIsSpellListOpen(!isSpellListOpen);
 
   const handleLogout = () => {
     const auth = getAuth();
@@ -27,15 +29,10 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
       .catch((error) => console.error("Error signing out:", error));
   };
 
-  const fetchUserCollections = () => {
+  useEffect(() => {
     if (!user) return;
 
-    const q = query(
-      collection(db, "userSpells"),
-      where("userId", "==", user.uid)
-    );
-
-    // Слушатель данных для автоматического обновления
+    const q = query(collection(db, "userSpells"), where("userId", "==", user.uid));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const collections = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -44,17 +41,14 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
       setUserCollections(collections);
     });
 
-    return unsubscribe; // Возвращаем функцию для отписки
-  };
-
-  useEffect(() => {
-    const unsubscribe = fetchUserCollections();
-    return () => unsubscribe && unsubscribe();
+    return () => unsubscribe();
   }, [user]);
 
   const handleCollectionSelect = (collection) => {
-    onCollectionSelect(collection.spells, "Заклинания");
-    setIsOpen(false);
+    onCollectionSelect([], "Заклинания"); // Сначала сбрасываем список
+    setTimeout(() => {
+      onCollectionSelect(collection.spells, "Заклинания"); // Затем устанавливаем его снова
+    }, 0);
   };
 
   const handleDeleteCollection = async (id) => {
@@ -89,60 +83,41 @@ const ProfileMenu = ({ user, onCollectionSelect }) => {
           <li className="profile-menu__item">My Profile</li>
           <li className="profile-menu__item">My Characters</li>
           <li className="profile-menu__item">
-            <h3>Мои заклинания:</h3>
-            {userCollections.length > 0 ? (
+            <h3 onClick={toggleSpellList} style={{ cursor: "pointer" }}>
+              Мои заклинания {isSpellListOpen ? "▲" : "▼"}
+            </h3>
+            {isSpellListOpen && (
               <ul>
-                {userCollections.map((collection) => (
-                  <li key={collection.id} className="profile-menu__collection">
-                    {editingCollectionId === collection.id ? (
-                      <div>
-                        <input
-                          type="text"
-                          value={newName}
-                          onChange={(e) => setNewName(e.target.value)}
-                        />
-                        <button onClick={() => handleSaveEdit(collection.id)}>
-                          Сохранить
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        <span
-                          onClick={() => handleCollectionSelect(collection)}
-                        >
-                          {collection.collectionName} (
-                          {collection.spells.length})
-                        </span>
-                        <button
-                          className="profile-menu__edit"
-                          onClick={() =>
-                            handleEditCollection(
-                              collection.id,
-                              collection.collectionName
-                            )
-                          }
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          className="profile-menu__delete"
-                          onClick={() => handleDeleteCollection(collection.id)}
-                        >
-                          ❌
-                        </button>
-                      </>
-                    )}
-                  </li>
-                ))}
+                {userCollections.length > 0 ? (
+                  userCollections.map((collection) => (
+                    <li key={collection.id} className="profile-menu__collection">
+                      {editingCollectionId === collection.id ? (
+                        <div>
+                          <input
+                            type="text"
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                          />
+                          <button onClick={() => handleSaveEdit(collection.id)}>Сохранить</button>
+                        </div>
+                      ) : (
+                        <>
+                          <span onClick={() => handleCollectionSelect(collection)}>
+                            {collection.collectionName} ({collection.spells.length})
+                          </span>
+                          <button className="profile-menu__edit" onClick={() => handleEditCollection(collection.id, collection.collectionName)}>✏️</button>
+                          <button className="profile-menu__delete" onClick={() => handleDeleteCollection(collection.id)}>❌</button>
+                        </>
+                      )}
+                    </li>
+                  ))
+                ) : (
+                  <p>Нет сохранённых коллекций</p>
+                )}
               </ul>
-            ) : (
-              <p>Нет сохранённых коллекций</p>
             )}
           </li>
-          <li
-            className="profile-menu__item profile-menu__logout"
-            onClick={handleLogout}
-          >
+          <li className="profile-menu__item profile-menu__logout" onClick={handleLogout}>
             Logout
           </li>
         </ul>

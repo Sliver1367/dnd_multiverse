@@ -67,11 +67,7 @@ const SelectedSpells = ({ selectedSpells, onResetSpells, onRemoveSpell }) => {
             {selectedSpells.map((spell) => (
               <li key={spell.titleRus} className="spell-item">
                 <span>{spell.titleRus}</span>
-                <button
-                  className="remove-button"
-                  onClick={() => onRemoveSpell(spell)}
-                  aria-label="Удалить заклинание"
-                >
+                <button className="remove-button" onClick={() => onRemoveSpell(spell)} aria-label="Удалить заклинание">
                   &times;
                 </button>
               </li>
