@@ -4,7 +4,7 @@
   border: 2px solid #ae0707;
   border-radius: 12px;
   padding: 12px;
-  margin: 20px auto; /* Центрирование карточки */
+  margin: 0 auto 20px auto; /* Центрирование карточки */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 425px; /* Фиксированная ширина */
   min-height: 685px;

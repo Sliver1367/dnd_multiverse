@@ -1,3 +1,4 @@
+/* Основной контейнер фильтров */
 .filters-container {
   display: flex;
   flex-direction: column;
@@ -5,10 +6,10 @@
   padding: 20px;
   border: 2px solid #ae0707;
   border-radius: 16px;
-  background-color: #fff5f5;
-  max-width: 300px;
+  
 }
 
+/* Заголовки фильтров */
 .filters-container label {
   display: flex;
   flex-direction: column;
@@ -17,15 +18,16 @@
   font-size: 14px;
 }
 
+/* Общие стили для чекбоксов */
 .checkbox-label {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-weight: bold;
   color: #ae0707;
   font-size: 14px;
 }
 
+/* Селекторы и кнопки */
 .filters-container select,
 .filters-container .checkbox-button {
   margin-top: 8px;
@@ -89,57 +91,90 @@
   color: #870505;
 }
 
+/* Блок компонентов и параметров */
 .components-filters {
   display: flex;
+  flex-direction: column;
   gap: 16px;
   padding: 20px;
   border: 2px solid #ae0707;
   border-radius: 16px;
   background-color: #fff5f5;
-  max-width: 300px;
+  max-width: 320px;
 }
 
+/* Текст заголовка компонентов */
 .components-filters label {
   font-weight: bold;
   color: #ae0707;
   font-size: 14px;
 }
 
-.components-checkboxes {
+/* Блоки фильтрации в две колонки */
+.components-filter-grid {
   display: flex;
-  gap: 8px;
+  gap: 20px;
+  justify-content: space-between;
 }
 
-.components-checkboxes label {
+/* Колонки */
+.components-column {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
-  gap: 8px;
+}
+
+/* Заголовок колонки */
+.components-column p {
   font-weight: bold;
   color: #ae0707;
   font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Общий стиль для чекбоксов */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
   cursor: pointer;
 }
 
-.components-checkboxes input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #ae0707;
-  border-radius: 4px;
-  appearance: none;
+/* Скрытие стандартного чекбокса */
+.checkbox-label input {
+  display: none;
+}
+
+/* Стилизация чекбокса */
+.checkbox-content {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #ae0707;
+  text-align: center;
+  line-height: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
   background-color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.components-checkboxes input[type="checkbox"]:checked {
+/* При выборе чекбокса */
+.checkbox-label input:checked + .checkbox-content {
   background-color: #ae0707;
+  color: white;
+  border-color: #870505;
 }
 
-.components-checkboxes input[type="checkbox"]:hover {
+/* Ховер */
+.checkbox-content:hover {
   background-color: #870505;
+  color: white;
 }
-
-
 
 /* Кнопка сброса фильтров */
 .reset-filter {
@@ -155,45 +190,4 @@
 
 .reset-filter:hover {
   background-color: #870505;
-}
-
-.components-filter-grid {
-  display: flex;
-  gap: 20px;
-}
-
-.components-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-}
-
-.checkbox-label input {
-  display: none;
-}
-
-.checkbox-content {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border: 2px solid #666;
-  text-align: center;
-  line-height: 32px;
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 4px;
-}
-
-.checkbox-label input:checked + .checkbox-content {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
 }

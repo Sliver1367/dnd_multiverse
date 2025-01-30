@@ -104,6 +104,17 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         (newFilters.excludeComponentM === null ||
           hasComponentM !== newFilters.excludeComponentM);
 
+      const passesRitual =
+        (newFilters.ritual === null || isRitual === newFilters.ritual) &&
+        (newFilters.excludeRitual === null ||
+          isRitual !== newFilters.excludeRitual);
+
+      const passesConcentration =
+        (newFilters.concentration === null ||
+          isConcentration === newFilters.concentration) &&
+        (newFilters.excludeConcentration === null ||
+          isConcentration !== newFilters.excludeConcentration);
+
       const belongsToClass =
         !newFilters.class ||
         Object.keys(classMapping).some(
@@ -118,7 +129,6 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
             ?.toLowerCase()
             .includes(newFilters.name.toLowerCase())) &&
         (!newFilters.level || spell.level === parseInt(newFilters.level, 10)) &&
-        (!newFilters.ritual || isRitual === newFilters.ritual) &&
         (!newFilters.castingTime ||
           spell.castingTimeRus === newFilters.castingTime) &&
         (!newFilters.rangeFt || spell.rangeFt === newFilters.rangeFt) &&
@@ -129,8 +139,8 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         passesComponentV &&
         passesComponentS &&
         passesComponentM &&
-        (!newFilters.concentration ||
-          isConcentration === newFilters.concentration) &&
+        passesRitual &&
+        passesConcentration &&
         belongsToClass
       );
     });
@@ -163,10 +173,12 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
 
   return (
     <div className="all-spells-container">
+      {/* Фильтры слева */}
       <div className="filters-container">
         <Filters filterOptions={filterOptions} onApplyFilters={applyFilters} />
       </div>
-
+  
+      {/* Карточки заклинаний в центре */}
       <div className="cards-container">
         {filteredSpells
           .sort((a, b) => a.titleRus.localeCompare(b.titleRus))
@@ -181,7 +193,8 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
             />
           ))}
       </div>
-
+  
+      {/* Выбранные заклинания справа */}
       <div className="selected-spells-container">
         <SelectedSpells
           selectedSpells={selectedSpells}

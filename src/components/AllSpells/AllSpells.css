@@ -3,25 +3,30 @@
   grid-template-columns: 1fr 3fr 1fr;
   gap: 20px;
   padding: 20px;
+  position: relative;
 }
 
-.filters-container {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
+/* Закрепляем боковые панели */
+.filters-container,
+.selected-spells-container {
+  position: sticky;
+  top: 20px; /* Остаются на месте при скролле */
+  height: fit-content;
+  max-height: 90vh; /* Чтобы не занимали всю страницу */
+  overflow-y: auto; /* Добавляем прокрутку, если элементов много */
+  border: 2px solid #ae0707;
+  border-radius: 16px;
   background-color: #f9f9f9;
+  padding: 15px;
 }
 
+/* Карточки в центре */
 .cards-container {
+  margin-top: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-}
-
-.selected-spells-container {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  overflow-y: auto;
+  max-height: 90vh;
 }
