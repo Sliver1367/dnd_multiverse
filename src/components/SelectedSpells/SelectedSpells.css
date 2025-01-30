@@ -60,13 +60,12 @@
   color: #ae0707;
   cursor: pointer;
   transition: transform 0.3s, color 0.3s;
-  padding: 4px;
+  padding: 10px;
   line-height: 1;
 }
 
 .remove-button:hover {
-  color: #870505;
-  transform: scale(1.2);
+  color: #510303;
 }
 
 /* Контейнер для кнопок */
@@ -86,6 +85,7 @@
   padding: 10px 20px;
   height: 60; /* Одинаковая высота для всех кнопок */
   max-width: 100px;
+  min-height: 73px;
   display: flex;
   justify-content: center;
   align-items: center;

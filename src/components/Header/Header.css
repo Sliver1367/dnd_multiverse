@@ -5,9 +5,9 @@
     background-color: #4f4a4a;
     background-size: cover;
     background-position: center;
-    padding: 10px 20px;
+    padding: 10px 20px 0 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 60px;
+    height: 50px;
     color: #ae0707;
     font-family: 'Arial', sans-serif;
   }

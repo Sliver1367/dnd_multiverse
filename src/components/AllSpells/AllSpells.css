@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr 1fr; /* Автоматическая ширина для правого контейнера */
   gap: 20px;
-  padding: 20px;
+  padding: 10px;
   position: relative;
   align-items: start; /* Выравниваем элементы сверху */
 }
@@ -21,19 +21,19 @@
   max-width: 100%; /* Чтобы контейнер не сжимался */
   margin: 0 auto; /* Центрирование */
   position: sticky;
-  top: 20px; /* Остаются на месте при скролле */
+  top: 15px; /* Остаются на месте при скролле */
   height: fit-content;
-  max-height: 75vh; /* Чтобы не занимали всю страницу */
+  max-height: 90vh; /* Чтобы не занимали всю страницу */
   overflow-y: auto; /* Добавляем прокрутку, если элементов много */
   border: 2px solid #ae0707;
   border-radius: 16px;
   background-color: #f9f9f9;
-  padding: 15px;
+  padding: 015px;
 }
 
 /* Карточки в центре */
 .cards-container {
-  margin-top: 0;
+  padding-top: 15px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
