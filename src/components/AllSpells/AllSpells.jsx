@@ -34,18 +34,30 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
       setSpells(spellsData);
       setFilteredSpells(spellsData);
 
-      const uniqueLevels = [...new Set(spellsData.map((spell) => spell.level))].sort();
-      const uniqueCastingTimes = [...new Set(spellsData.map((spell) => spell.castingTimeRus))].sort();
-      const uniqueDurations = [...new Set(spellsData.map((spell) => spell.durationRus))].sort();
-      const uniqueSchools = [...new Set(spellsData.map((spell) => spell.schoolRus || spell.school))].sort();
-      const uniqueRanges = [...new Set(spellsData.map((spell) => spell.rangeFt))].sort();
-      const uniqueClasses = [...new Set(
-        spellsData.flatMap((spell) =>
-          Object.keys(spell).filter(
-            (key) => key.startsWith("class") && spell[key] === true
+      const uniqueLevels = [
+        ...new Set(spellsData.map((spell) => spell.level)),
+      ].sort();
+      const uniqueCastingTimes = [
+        ...new Set(spellsData.map((spell) => spell.castingTimeRus)),
+      ].sort();
+      const uniqueDurations = [
+        ...new Set(spellsData.map((spell) => spell.durationRus)),
+      ].sort();
+      const uniqueSchools = [
+        ...new Set(spellsData.map((spell) => spell.schoolRus || spell.school)),
+      ].sort();
+      const uniqueRanges = [
+        ...new Set(spellsData.map((spell) => spell.rangeFt)),
+      ].sort();
+      const uniqueClasses = [
+        ...new Set(
+          spellsData.flatMap((spell) =>
+            Object.keys(spell).filter(
+              (key) => key.startsWith("class") && spell[key] === true
+            )
           )
-        )
-      )]
+        ),
+      ]
         .sort()
         .map((cls) => classMapping[cls] || cls);
 
@@ -67,25 +79,30 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
   }, [preSelectedSpells]);
 
   const applyFilters = (newFilters) => {
-    const filtered = spells.filter((spell) => {
+    let filtered = spells.filter((spell) => {
       const isRitual = spell.ritual === true;
       const isConcentration = spell.concentration === true;
 
-      // Фильтрация компонентов (новая логика)
+      // Проверка на компонент M (если там текст)
+      const hasComponentM = spell.componentM && spell.componentM.trim() !== "";
+
       const passesComponentV =
-        newFilters.componentV === null ||
-        (newFilters.componentV === true && spell.componentV) ||
-        (newFilters.componentV === false && !spell.componentV);
+        (newFilters.componentV === null ||
+          spell.componentV === newFilters.componentV) &&
+        (newFilters.excludeComponentV === null ||
+          spell.componentV !== newFilters.excludeComponentV);
 
       const passesComponentS =
-        newFilters.componentS === null ||
-        (newFilters.componentS === true && spell.componentS) ||
-        (newFilters.componentS === false && !spell.componentS);
+        (newFilters.componentS === null ||
+          spell.componentS === newFilters.componentS) &&
+        (newFilters.excludeComponentS === null ||
+          spell.componentS !== newFilters.excludeComponentS);
 
       const passesComponentM =
-        newFilters.componentM === null ||
-        (newFilters.componentM === true && spell.componentM) ||
-        (newFilters.componentM === false && !spell.componentM);
+        (newFilters.componentM === null ||
+          hasComponentM === newFilters.componentM) &&
+        (newFilters.excludeComponentM === null ||
+          hasComponentM !== newFilters.excludeComponentM);
 
       const belongsToClass =
         !newFilters.class ||
@@ -97,10 +114,13 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
 
       return (
         (!newFilters.name ||
-          spell.titleRus?.toLowerCase().includes(newFilters.name.toLowerCase())) &&
+          spell.titleRus
+            ?.toLowerCase()
+            .includes(newFilters.name.toLowerCase())) &&
         (!newFilters.level || spell.level === parseInt(newFilters.level, 10)) &&
         (!newFilters.ritual || isRitual === newFilters.ritual) &&
-        (!newFilters.castingTime || spell.castingTimeRus === newFilters.castingTime) &&
+        (!newFilters.castingTime ||
+          spell.castingTimeRus === newFilters.castingTime) &&
         (!newFilters.rangeFt || spell.rangeFt === newFilters.rangeFt) &&
         (!newFilters.duration || spell.durationRus === newFilters.duration) &&
         (!newFilters.school ||
@@ -109,12 +129,17 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
         passesComponentV &&
         passesComponentS &&
         passesComponentM &&
-        (!newFilters.concentration || isConcentration === newFilters.concentration) &&
+        (!newFilters.concentration ||
+          isConcentration === newFilters.concentration) &&
         belongsToClass
       );
     });
 
-    setFilteredSpells(filtered);
+    // Если нет активных фильтров — показываем полный список
+    const hasActiveFilters = Object.values(newFilters).some(
+      (value) => value !== "" && value !== null && value !== false
+    );
+    setFilteredSpells(hasActiveFilters ? filtered : spells);
   };
 
   const toggleSelectSpell = (spell) => {
@@ -149,7 +174,9 @@ const AllSpells = ({ preSelectedSpells = [] }) => {
             <SpellCard
               key={index}
               spell={spell}
-              isSelected={selectedSpells.some((s) => s.titleRus === spell.titleRus)}
+              isSelected={selectedSpells.some(
+                (s) => s.titleRus === spell.titleRus
+              )}
               onSelect={() => toggleSelectSpell(spell)}
             />
           ))}

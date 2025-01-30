@@ -11,6 +11,9 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
     componentV: null,
     componentS: null,
     componentM: null,
+    excludeComponentV: null,
+    excludeComponentS: null,
+    excludeComponentM: null,
     concentration: false,
     duration: "",
     school: "",
@@ -31,18 +34,23 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
     });
   };
 
-  const toggleComponentFilter = (component) => {
+  const toggleComponentFilter = (component, isExclude = false) => {
     setFilters((prev) => {
-      const newValue =
-        prev[component] === null ? true : prev[component] === true ? false : null;
+      const newFilters = { ...prev };
 
-      const updatedFilters = {
-        ...prev,
-        [component]: newValue,
-      };
+      if (isExclude) {
+        // Если выбираем "Не включает", сбрасываем "Включает"
+        newFilters[component] = null;
+        newFilters[`exclude${component.charAt(0).toUpperCase() + component.slice(1)}`] =
+          prev[`exclude${component.charAt(0).toUpperCase() + component.slice(1)}`] === true ? null : true;
+      } else {
+        // Если выбираем "Включает", сбрасываем "Не включает"
+        newFilters[`exclude${component.charAt(0).toUpperCase() + component.slice(1)}`] = null;
+        newFilters[component] = prev[component] === true ? null : true;
+      }
 
-      onApplyFilters(updatedFilters);
-      return updatedFilters;
+      onApplyFilters(newFilters);
+      return newFilters;
     });
   };
 
@@ -53,6 +61,9 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
         componentV: null,
         componentS: null,
         componentM: null,
+        excludeComponentV: null,
+        excludeComponentS: null,
+        excludeComponentM: null,
       };
       onApplyFilters(updatedFilters);
       return updatedFilters;
@@ -127,7 +138,11 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
       {/* Длительность */}
       <label>
         Длительность:
-        <select name="duration" value={filters.duration} onChange={handleChange}>
+        <select
+          name="duration"
+          value={filters.duration}
+          onChange={handleChange}
+        >
           <option value="">Все</option>
           {filterOptions.durations?.map((duration) => (
             <option key={duration} value={duration}>
@@ -151,32 +166,57 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
       </label>
 
       {/* Компоненты */}
-      <div className="components-filters">
-        <label>Компоненты:</label>
-        <div className="components-checkboxes">
+      <div className="filters-container">
+      <label>Компоненты:</label>
+      <div className="components-filter-grid">
+        <div className="components-column">
+          <p>Включает:</p>
           {["componentV", "componentS", "componentM"].map((comp) => (
-            <button
-              key={comp}
-              className={`component-toggle ${filters[comp] === true ? "plus" : filters[comp] === false ? "minus" : ""}`}
-              onClick={() => toggleComponentFilter(comp)}
-            >
-              {comp === "componentV" ? "В" : comp === "componentS" ? "С" : "М"}
-              {filters[comp] === true ? " +" : filters[comp] === false ? " -" : ""}
-            </button>
+            <label key={comp} className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={filters[comp] === true}
+                onChange={() => toggleComponentFilter(comp)}
+              />
+              <span className="checkbox-content">{comp.charAt(comp.length - 1).toUpperCase()}</span>
+            </label>
+          ))}
+        </div>
+
+        <div className="components-column">
+          <p>Не включает:</p>
+          {["componentV", "componentS", "componentM"].map((comp) => (
+            <label key={`exclude${comp}`} className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={filters[`exclude${comp.charAt(0).toUpperCase() + comp.slice(1)}`] === true}
+                onChange={() => toggleComponentFilter(comp, true)}
+              />
+              <span className="checkbox-content">{comp.charAt(comp.length - 1).toUpperCase()}</span>
+            </label>
           ))}
         </div>
       </div>
 
       <button className="reset-filter" onClick={resetComponentFilters}>
-        Сбросить фильтр компонентов
+        Сбросить компоненты
       </button>
+    </div>
 
       {/* Ритуал */}
       <label className="checkbox-label">
         Ритуал:
         <div
           className={`checkbox-button ${filters.ritual ? "checked" : ""}`}
-          onClick={() => handleChange({ target: { name: "ritual", checked: !filters.ritual, type: "checkbox" } })}
+          onClick={() =>
+            handleChange({
+              target: {
+                name: "ritual",
+                checked: !filters.ritual,
+                type: "checkbox",
+              },
+            })
+          }
         ></div>
       </label>
 
@@ -184,9 +224,17 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
       <label className="checkbox-label">
         Концентрация:
         <div
-          className={`checkbox-button ${filters.concentration ? "checked" : ""}`}
+          className={`checkbox-button ${
+            filters.concentration ? "checked" : ""
+          }`}
           onClick={() =>
-            handleChange({ target: { name: "concentration", checked: !filters.concentration, type: "checkbox" } })
+            handleChange({
+              target: {
+                name: "concentration",
+                checked: !filters.concentration,
+                type: "checkbox",
+              },
+            })
           }
         ></div>
       </label>
