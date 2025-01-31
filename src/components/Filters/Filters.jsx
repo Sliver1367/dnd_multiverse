@@ -110,9 +110,9 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
         </select>
       </label>
 
-      {/* Время накладывания */}
+      {/* Время использования */}
       <label>
-        Время накладывания:
+        Время использования:
         <select
           name="castingTime"
           value={filters.castingTime}
