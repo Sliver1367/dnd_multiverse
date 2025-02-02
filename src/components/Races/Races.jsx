@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import "./Races.css"; // Подключаем стили
+import "../Races/Races.css";
+
+// Импортируем все расы как отдельные компоненты
+import Human from "../Human/Human";
+import Elf from "../Elf/Elf";
+import Goliath from "../Goliath/Goliath"; 
+import Aasimar from "../Aasimar/Aasimar"; 
 
 const races = {
-  Человек: "Универсальные способности, бонус +1 ко всем характеристикам.",
-  Эльф: "Долгая жизнь, чувствительность к магии, тёмное зрение.",
-  Дварф: "Высокая выносливость, устойчивость к ядам, мастерство в кузнечном деле.",
-  Тифлинг: "Демоническое наследие, бонус к магии, сопротивление огню.",
-  Драконорожденный: "Драконья кровь, дыхательное оружие, сопротивление определённому типу урона.",
-  Полуорк: "Высокая сила, дикость в бою, способность продолжать сражаться даже на грани смерти.",
-  Гном: "Интеллект, владение магией иллюзий, устойчивость к магии.",
-  Хафлинг: "Ловкость, удача, способность проходить сквозь тесные места.",
-  Дженази: "Потомки элементалей, могут управлять стихиями.",
-  Аасимар: "Божественное происхождение, светящееся оружие, способности к исцелению."
+  Человек: Human,
+  Эльф: Elf,
+  Аасимар: Aasimar,
+  Голиаф: Goliath, // Добавили новую расу
 };
 
-const RaceSelector = () => {
+const Race = () => {
   const [selectedRace, setSelectedRace] = useState("Человек");
+
+  const SelectedRaceComponent = races[selectedRace]; // Получаем соответствующий компонент
 
   return (
     <div className="race-container">
@@ -31,12 +33,9 @@ const RaceSelector = () => {
           </button>
         ))}
       </div>
-      <div className="race-info-box">
-        <h3>{selectedRace}</h3>
-        <p>{races[selectedRace]}</p>
-      </div>
+      <SelectedRaceComponent /> {/* Отображаем компонент выбранной расы */}
     </div>
   );
 };
 
-export default RaceSelector;
+export default Race;
