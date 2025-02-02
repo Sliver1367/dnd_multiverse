@@ -1,0 +1,42 @@
+.race-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .race-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .race-button {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background-color: #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .race-button:hover {
+    background-color: #bbb;
+  }
+  
+  .race-button.active {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .race-info-box {
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }

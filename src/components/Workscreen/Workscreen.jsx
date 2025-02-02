@@ -1,10 +1,11 @@
 import React from "react";
 import AllSpells from "../AllSpells/AllSpells";
+import Races from "../Races/Races"
 
 // Добавляем обработку подкатегорий
 const SubcategoryContent = ({ activeSubcategory }) => {
   const subcategoryComponents = {
-    "Расы": <div>Контент для "Расы"</div>,
+    "Расы": <Races/>,
     "Классы": <div>Контент для "Классы"</div>,
     "Предыстории": <div>Контент для "Предыстории"</div>,
     "Черты": <div>Контент для "Черты"</div>,
