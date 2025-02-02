@@ -156,3 +156,21 @@
 .filters-container select {
   margin: 4px;
 }
+
+.reset-components-button {
+  padding: 8px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ae0707;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.reset-components-button:hover {
+  background-color: #870505;
+}
