@@ -2,19 +2,39 @@
 .filters-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px;
-  border: 2px solid #ae0707;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #ae0707;
   border-radius: 12px;
   background: #fff;
-  max-width: 300px;
+  max-width: 380px;
+}
+
+/* Две колонки */
+.filters-columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid #ae0707;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+/* Выравнивание колонок */
+.filters-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 48%;
 }
 
 /* Заголовки фильтров */
 .filters-container label {
   display: flex;
   flex-direction: column;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #ae0707;
 }
@@ -38,12 +58,12 @@
 }
 
 .input-with-reset input {
-  padding-right: 28px;
+  padding-right: 32px;
 }
 
 .reset-text-button {
   position: absolute;
-  right: 6px;
+  right: 8px;
   background: none;
   border: none;
   font-size: 16px;
@@ -54,6 +74,87 @@
 
 .reset-text-button:hover {
   color: #870505;
+}
+
+/* Группа компонентов */
+.components-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+  border: 2px solid #ae0707;
+}
+
+/* Грид компонентов */
+.components-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Группа компонентов */
+.components-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Стиль чекбоксов */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Убираем стандартный чекбокс */
+.checkbox-label input {
+  display: none;
+}
+
+/* Кастомные чекбоксы */
+.checkbox-content {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ae0707;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Активный чекбокс */
+.checkbox-label input:checked + .checkbox-content {
+  background-color: #ae0707;
+  color: white;
+}
+
+/* Кнопка сброса */
+.reset-filter,
+.reset-components-button {
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ae0707;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.reset-filter:hover,
+.reset-components-button:hover {
+  background-color: #870505;
 }
 
 /* Компактный грид для фильтров компонентов */
@@ -77,7 +178,7 @@
 .components-column p {
   font-weight: bold;
   color: #ae0707;
-  font-size: 18px;
+  font-size: 16px;
   margin: 5px;
   width: 100%;
   text-align: center;
@@ -101,8 +202,8 @@
 /* Стилизация кастомного чекбокса */
 .checkbox-content {
   display: flex;
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
   border: 1px solid #ae0707;
   justify-content: center;
   align-items: center;
@@ -129,48 +230,12 @@
   color: white;
 }
 
-/* Кнопка сброса фильтров */
-.reset-filter {
-  padding: 8px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ae0707;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-.reset-filter:hover {
-  background-color: #870505;
-}
-
 /* Оптимизация отступов в контейнере */
 .filters-container > * {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .filters-container input,
 .filters-container select {
   margin: 4px;
-}
-
-.reset-components-button {
-  padding: 8px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ae0707;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  margin-top: 8px;
-}
-
-.reset-components-button:hover {
-  background-color: #870505;
 }

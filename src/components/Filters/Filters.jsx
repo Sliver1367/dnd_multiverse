@@ -87,108 +87,115 @@ const Filters = ({ filterOptions, onApplyFilters }) => {
 
   return (
     <div className="filters-container">
-      {/* Поиск по названию */}
-      <label>
-        Название заклинания:
-        <div className="input-with-reset">
-          <input
-            type="text"
-            name="name"
-            value={filters.name}
-            onChange={(e) => handleChange(e)}
-            placeholder="Введите название"
-          />
-          {filters.name && (
-            <button
-              className="reset-text-button"
-              onClick={() =>
-                setFilters((prev) => {
-                  const updatedFilters = { ...prev, name: "" };
-                  onApplyFilters(updatedFilters);
-                  return updatedFilters;
-                })
-              }
+      {/* Две колонки */}
+      <div className="filters-columns">
+        {/* Левая колонка */}
+        <div className="filters-column">
+          {/* Название */}
+          <label>
+            Название заклинания:
+            <div className="input-with-reset">
+              <input
+                type="text"
+                name="name"
+                value={filters.name}
+                onChange={handleChange}
+                placeholder="Введите название"
+              />
+              {filters.name && (
+                <button
+                  className="reset-text-button"
+                  onClick={() => setFilters((prev) => ({ ...prev, name: "" }))}
+                >
+                  ✖
+                </button>
+              )}
+            </div>
+          </label>
+
+          {/* Уровень */}
+          <label>
+            Уровень:
+            <select name="level" value={filters.level} onChange={handleChange}>
+              <option value="">Все</option>
+              {filterOptions.levels?.map((level) => (
+                <option key={level} value={level}>
+                  {level}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {/* Время использования */}
+          <label>
+            Время использования:
+            <select
+              name="castingTime"
+              value={filters.castingTime}
+              onChange={handleChange}
             >
-              ✖
-            </button>
-          )}
+              <option value="">Все</option>
+              {filterOptions.castingTimes?.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
-      </label>
 
-      {/* Уровень */}
-      <label>
-        Уровень:
-        <select name="level" value={filters.level} onChange={handleChange}>
-          <option value="">Все</option>
-          {filterOptions.levels?.map((level) => (
-            <option key={level} value={level}>
-              {level}
-            </option>
-          ))}
-        </select>
-      </label>
+        {/* Правая колонка */}
+        <div className="filters-column">
+          {/* Длительность */}
+          <label>
+            Длительность:
+            <select
+              name="duration"
+              value={filters.duration}
+              onChange={handleChange}
+            >
+              <option value="">Все</option>
+              {filterOptions.durations?.map((duration) => (
+                <option key={duration} value={duration}>
+                  {duration}
+                </option>
+              ))}
+            </select>
+          </label>
 
-      {/* Время использования */}
-      <label>
-        Время использования:
-        <select
-          name="castingTime"
-          value={filters.castingTime}
-          onChange={handleChange}
-        >
-          <option value="">Все</option>
-          {filterOptions.castingTimes?.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          ))}
-        </select>
-      </label>
+          {/* Школа заклинаний */}
+          <label>
+            Школа заклинаний:
+            <select
+              name="school"
+              value={filters.school}
+              onChange={handleChange}
+            >
+              <option value="">Все</option>
+              {filterOptions.schools?.map((school) => (
+                <option key={school} value={school}>
+                  {school}
+                </option>
+              ))}
+            </select>
+          </label>
 
-      {/* Длительность */}
-      <label>
-        Длительность:
-        <select
-          name="duration"
-          value={filters.duration}
-          onChange={handleChange}
-        >
-          <option value="">Все</option>
-          {filterOptions.durations?.map((duration) => (
-            <option key={duration} value={duration}>
-              {duration}
-            </option>
-          ))}
-        </select>
-      </label>
+          {/* Класс */}
+          <label>
+            Класс:
+            <select name="class" value={filters.class} onChange={handleChange}>
+              <option value="">Все</option>
+              {filterOptions.classes?.map((cls) => (
+                <option key={cls} value={cls}>
+                  {cls}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </div>
 
-      {/* Школа заклинаний */}
-      <label>
-        Школа заклинаний:
-        <select name="school" value={filters.school} onChange={handleChange}>
-          <option value="">Все</option>
-          {filterOptions.schools?.map((school) => (
-            <option key={school} value={school}>
-              {school}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      {/* Классы */}
-      <label>
-        Класс:
-        <select name="class" value={filters.class} onChange={handleChange}>
-          <option value="">Все</option>
-          {filterOptions.classes?.map((cls) => (
-            <option key={cls} value={cls}>
-              {cls}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="filters-container">
+      <div>
         {/* Компоненты */}
         <div className="filters-container">
           <div className="components-filter-grid">
