@@ -14,7 +14,7 @@ const races = {
   Голиаф: Goliath, // Добавили новую расу
 };
 
-const Race = () => {
+const Races = () => {
   const [selectedRace, setSelectedRace] = useState("Человек");
 
   const SelectedRaceComponent = races[selectedRace]; // Получаем соответствующий компонент
@@ -38,4 +38,4 @@ const Race = () => {
   );
 };
 
-export default Race;
+export default Races;
