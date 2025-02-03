@@ -52,16 +52,16 @@ const racesData = [
 ];
 
 const Races = () => {
-  const [selectedRace, setSelectedRace] = useState(racesData[0]); // По умолчанию первая раса
+  // Изначально раса не выбрана
+  const [selectedRace, setSelectedRace] = useState(null);
 
   return (
     <div className="race-container">
-      <h2>Выберите расу</h2>
       <div className="race-button-container">
         {racesData.map((race) => (
           <button
             key={race.name}
-            className={selectedRace.name === race.name ? "race-button active" : "race-button"}
+            className={selectedRace?.name === race.name ? "race-button active" : "race-button"}
             onClick={() => setSelectedRace(race)}
           >
             {race.name}
@@ -69,7 +69,24 @@ const Races = () => {
         ))}
       </div>
 
-      <Race race={selectedRace} />
+      <div className="race-details">
+        {selectedRace ? (
+          <>
+            <Race race={selectedRace} />
+            <div className="race-image">
+              {/* Заглушка для картинки, позже замените на данные из Firebase */}
+              <img
+                src={`https://via.placeholder.com/300x200?text=${encodeURIComponent(selectedRace.name)}`}
+                alt={selectedRace.name}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="no-selection">
+            <h2>Выберите расу</h2>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

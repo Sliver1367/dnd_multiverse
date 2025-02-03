@@ -1,42 +1,76 @@
 .race-container {
-    text-align: center;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  .race-button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .race-button {
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    background-color: #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background 0.3s, color 0.3s;
-  }
-  
-  .race-button:hover {
-    background-color: #bbb;
-  }
-  
-  .race-button.active {
-    background-color: #007BFF;
-    color: white;
-  }
-  
-  .race-info-box {
-    padding: 15px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+  padding: 20px;
+  background-color: #f8f8f8; /* светлый фон для читаемости */
+  border-radius: 10px;
+  max-width: 800px; /* расширил контейнер для размещения элементов в строку */
+  margin: auto;
+}
+
+.race-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.race-button {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  background-color: #4a4a4a; /* темно-серый */
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background 0.3s, color 0.3s;
+  color: #f8f8f8; /* светлый текст */
+}
+
+.race-button:hover {
+  background-color: #666;
+}
+
+.race-button.active {
+  background-color: #8b0000; /* насыщенный темно-красный */
+  color: #fff;
+}
+
+/* Раскладка для деталей: блок с информацией и блок с картинкой располагаются в строку */
+.race-details {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Блок с информацией */
+.race-info-box {
+  flex: 1;
+  padding: 15px;
+  background-color: #fff; /* светлый фон для текста */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: #333; /* тёмный текст */
+}
+
+/* Блок для картинки */
+.race-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.race-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Окно с предложением выбрать расу */
+.no-selection {
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: #333;
+}
