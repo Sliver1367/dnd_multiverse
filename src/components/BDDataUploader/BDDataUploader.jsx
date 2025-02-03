@@ -4,11 +4,16 @@ import { collection, addDoc, deleteDoc, getDocs } from "firebase/firestore";
 import * as XLSX from "xlsx"; // Библиотека для работы с Excel
 
 const DndDataUploader = () => {
-  const [file, setFile] = useState(null);
+  const [spellsFile, setSpellsFile] = useState(null);
+  const [racesFile, setRacesFile] = useState(null);
 
-  // Обработчик загрузки файла
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  // Обработчики выбора файлов
+  const handleSpellsFileChange = (event) => {
+    setSpellsFile(event.target.files[0]);
+  };
+
+  const handleRacesFileChange = (event) => {
+    setRacesFile(event.target.files[0]);
   };
 
   // Парсер Excel в JSON
@@ -21,20 +26,20 @@ const DndDataUploader = () => {
     return json;
   };
 
-  // Очистка базы данных
-  const clearDatabase = async () => {
-    const spellsCollection = collection(db, "spells");
-    const spellsSnapshot = await getDocs(spellsCollection);
-
-    for (const doc of spellsSnapshot.docs) {
+  // Очистка коллекции в Firestore
+  const clearCollection = async (collectionName) => {
+    const collectionRef = collection(db, collectionName);
+    const snapshot = await getDocs(collectionRef);
+    for (const doc of snapshot.docs) {
       await deleteDoc(doc.ref);
     }
+    console.log(`Коллекция ${collectionName} очищена.`);
   };
 
-  // Загрузка данных в Firebase
-  const uploadData = async () => {
+  // Загрузка данных в Firestore
+  const uploadData = async (file, collectionName) => {
     if (!file) {
-      console.error("Файл не выбран");
+      console.error(`Файл для ${collectionName} не выбран`);
       return;
     }
 
@@ -42,43 +47,55 @@ const DndDataUploader = () => {
       // Парсинг Excel в JSON
       const jsonData = await parseExcel(file);
 
-      // Сброс базы данных
-      await clearDatabase();
+      // Очистка старых данных
+      await clearCollection(collectionName);
 
-      // Загрузка новых данных
-      const spellsCollection = collection(db, "spells");
-      for (const spell of jsonData) {
-        await addDoc(spellsCollection, spell);
-        console.log(`Заклинание "${spell.title}" добавлено в базу данных!`);
+      // Добавление новых данных
+      const collectionRef = collection(db, collectionName);
+      for (const item of jsonData) {
+        await addDoc(collectionRef, item);
+        console.log(`Добавлено в ${collectionName}: `, item);
       }
 
-      console.log("Все данные успешно загружены!");
+      console.log(`Все данные успешно загружены в ${collectionName}!`);
 
-      // Вывод данных из базы для проверки
-      await logDatabaseContents();
+      // Лог данных
+      await logCollectionContents(collectionName);
     } catch (error) {
-      console.error("Ошибка при загрузке данных: ", error);
+      console.error(`Ошибка при загрузке данных в ${collectionName}: `, error);
     }
   };
 
-  // Чтение и вывод данных из Firestore
-  const logDatabaseContents = async () => {
-    const spellsCollection = collection(db, "spells");
-    const spellsSnapshot = await getDocs(spellsCollection);
+  // Лог данных из Firestore
+  const logCollectionContents = async (collectionName) => {
+    const collectionRef = collection(db, collectionName);
+    const snapshot = await getDocs(collectionRef);
 
-    console.log("Содержимое базы данных:");
-    spellsSnapshot.docs.forEach((doc) => {
+    console.log(`Содержимое коллекции ${collectionName}:`);
+    snapshot.docs.forEach((doc) => {
       console.log(doc.data());
     });
   };
 
   return (
     <div>
-      <p>Загрузить данные о заклинаниях</p>
-      <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
-      <button onClick={uploadData} disabled={!file}>
-        Загрузить заклинания в Firestore
-      </button>
+      <h2>Загрузка данных DnD</h2>
+
+      <div>
+        <h3>Загрузить заклинания</h3>
+        <input type="file" accept=".xlsx, .xls" onChange={handleSpellsFileChange} />
+        <button onClick={() => uploadData(spellsFile, "spells")} disabled={!spellsFile}>
+          Загрузить заклинания в Firestore
+        </button>
+      </div>
+
+      <div>
+        <h3>Загрузить расы</h3>
+        <input type="file" accept=".xlsx, .xls" onChange={handleRacesFileChange} />
+        <button onClick={() => uploadData(racesFile, "races")} disabled={!racesFile}>
+          Загрузить расы в Firestore
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// src/components/Race/Race.js
 import React from "react";
 
 const Race = ({ race }) => {
@@ -6,22 +5,18 @@ const Race = ({ race }) => {
 
   return (
     <div className="race-info-box">
-      <h3>{race.name}</h3>
-      <p>{race.description}</p>
+      <h3>{race.titleRus || race.title}</h3>
+      <p dangerouslySetInnerHTML={{ __html: race.descriptionRus || race.description }} />
 
-      <h4>🔹 Особенности {race.name}:</h4>
+      <h4>Особенности:</h4>
       <ul>
-        <li><b>Тип существа:</b> {race.type}</li>
-        <li><b>Размер:</b> {race.size}</li>
-        <li><b>Скорость:</b> {race.speed}</li>
+        <li><b>Тип существа:</b> {race.creatureTypeRus || race.creatureType}</li>
+        <li><b>Размер:</b> {race.sizeRus || race.size}</li>
+        <li><b>Скорость:</b> {race.speedRus || race.speed}</li>
       </ul>
 
-      <h4>🎭 Способности:</h4>
-      <ul>
-        {race.abilities.map((ability, index) => (
-          <li key={index}><b>{ability.name}:</b> {ability.description}</li>
-        ))}
-      </ul>
+      <h4>Умения:</h4>
+      <p dangerouslySetInnerHTML={{ __html: race.traitsRus || race.traits }} />
     </div>
   );
 };
