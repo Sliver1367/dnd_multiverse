@@ -43,8 +43,6 @@ const Races = () => {
 
   return (
     <div className="race-container">
-      <h2>Выберите расу</h2>
-
       {loading ? (
         <p>Загрузка рас...</p>
       ) : (
