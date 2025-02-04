@@ -1,6 +1,6 @@
 import React from "react";
 import AllSpells from "../AllSpells/AllSpells";
-import Races from "../Races/Races"
+import Races from "../RacesComponents/Races/Races"
 
 // Добавляем обработку подкатегорий
 const SubcategoryContent = ({ activeSubcategory }) => {

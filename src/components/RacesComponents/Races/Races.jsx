@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase/firebaseConfig"; // Путь к Firebase
+import { db } from "../../../firebase/firebaseConfig"; // Путь к Firebase
 import { collection, getDocs } from "firebase/firestore";
 import Race from "../Race/Race";
 import "./Races.css";
-import aasimarImage from "../../img/aasimar.jpg";
+import aasimarImage from "../../../img/aasimar.jpg";
 
 const Races = () => {
   const [races, setRaces] = useState([]); // Список всех рас
