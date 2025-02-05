@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig";
+import { db } from "../../../firebase/firebaseConfig";
 import Filters from "../Filters/Filters";
 import SpellCard from "../SpellCard/SpellCard";
-import SelectedSpells from "../SelectedSpells/SelectedSpells";
+import SelectedSpells from "../../SelectedSpells/SelectedSpells";
 import "./AllSpells.css";
 
 const classMapping = {
