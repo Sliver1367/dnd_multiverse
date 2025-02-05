@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import Race from "../Race/Race";
 import "./Races.css";
 import aasimarImage from "../../../img/aasimar.jpg";
+import dragonbornImage from "../../../img/dragonborn.png";
 
 const Races = () => {
   const [races, setRaces] = useState([]); // Список всех рас
@@ -12,6 +13,7 @@ const Races = () => {
 
   const raceImages = {
     aasimar: aasimarImage,
+    dragonborn: dragonbornImage
     // можно добавить другие изображения
   };
 
