@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Header.css";
-import ProfileMenu from "../ProfileMenu/ProfileMenu";
+import ProfileMenu from "../UsersComponents/ProfileMenu/ProfileMenu";
 import Modal from "../Modal/Modal";
-import RegistrationForm from "../RegistrationForm/RegistrationForm";
-import LoginForm from "../LoginForm/LoginForm";
+import RegistrationForm from "../UsersComponents/RegistrationForm/RegistrationForm";
+import LoginForm from "../UsersComponents/LoginForm/LoginForm";
 
 const Header = ({ resetCategory, isAuthenticated, user, onCollectionSelect }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
