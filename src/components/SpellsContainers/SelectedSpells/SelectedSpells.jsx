@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PrintSpells from "../PrintSpells/PrintSpells";
-import Modal from "../Modal/Modal";
+import Modal from "../../Modal/Modal";
 import "./SelectedSpells.css";
-import { db } from "../../firebase/firebaseConfig";
+import { db } from "../../../firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth } from "../../../firebase/firebaseConfig";
 
 const SelectedSpells = ({ selectedSpells, onResetSpells, onRemoveSpell }) => {
   const [isPrintVisible, setPrintVisible] = useState(false);

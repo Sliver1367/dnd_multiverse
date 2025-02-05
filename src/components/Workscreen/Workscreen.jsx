@@ -1,5 +1,5 @@
 import React from "react";
-import AllSpells from "../AllSpells/AllSpells";
+import AllSpells from "../SpellsContainers/AllSpells/AllSpells";
 import Races from "../RacesComponents/Races/Races"
 
 // Добавляем обработку подкатегорий
