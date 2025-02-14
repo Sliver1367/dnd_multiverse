@@ -2,7 +2,6 @@
   padding: 20px;
   background-color: #f8f8f8; /* светлый фон для читаемости */
   border-radius: 10px;
-  max-width: 800px; /* расширил контейнер для размещения элементов в строку */
   margin: auto;
 }
 
