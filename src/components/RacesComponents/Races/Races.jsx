@@ -5,6 +5,9 @@ import Race from "../Race/Race";
 import "./Races.css";
 import aasimarImage from "../../../img/aasimar.jpg";
 import dragonbornImage from "../../../img/dragonborn.png";
+import dwarfImage from "../../../img/dwarf.jpeg";
+import elfImage from "../../../img/elf.png";
+
 
 const Races = () => {
   const [races, setRaces] = useState([]); // Список всех рас
@@ -13,7 +16,10 @@ const Races = () => {
 
   const raceImages = {
     aasimar: aasimarImage,
-    dragonborn: dragonbornImage
+    dragonborn: dragonbornImage,
+    dwarf: dwarfImage,
+    elf: elfImage
+
     // можно добавить другие изображения
   };
 
