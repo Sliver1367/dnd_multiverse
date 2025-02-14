@@ -1,0 +1,48 @@
+.race-info-box {
+    background-color: #f8f8f8; /* Небольшая заливка */
+    border: 1px solid #ddd;    /* Лёгкая рамка */
+    border-radius: 5px;       
+    padding: 16px;
+    margin: 16px 0;
+    font-family: "Arial", sans-serif;
+  }
+  
+  .race-info-box h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.25rem;
+  }
+  
+  .race-info-box p,
+  .race-info-box li {
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .race-info-box ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .race-info-box li {
+    margin-bottom: 4px;
+  }
+  
+  .race-subtype {
+    margin: 8px 0;
+    padding: 8px;
+    background-color: #fafafa;
+    border-left: 4px solid #ccc;
+  }
+  
+  .race-subtype h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .race-subtype p {
+    margin: 0;
+    font-style: italic;
+    color: #444;
+  }
