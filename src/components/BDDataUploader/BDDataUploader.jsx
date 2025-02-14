@@ -80,7 +80,6 @@ const DndDataUploader = () => {
   return (
     <div>
       <h2>Загрузка данных DnD</h2>
-
       <div>
         <h3>Загрузить заклинания</h3>
         <input type="file" accept=".xlsx, .xls" onChange={handleSpellsFileChange} />
