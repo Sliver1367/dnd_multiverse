@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../../firebase/firebaseConfig"; // Путь к Firebase
 import { collection, getDocs } from "firebase/firestore";
-import ClassDetails from "../ClassDetails/ClassDetails";
+import Class from "../Class/Class";
 import "./Classes.css";
 
 const Classes = () => {
@@ -53,7 +53,7 @@ const Classes = () => {
 
           <div className="class-details">
             {selectedClass ? (
-              <ClassDetails charClass={selectedClass} />
+              <Class charClass={selectedClass} />
             ) : (
               <p>Выберите класс, чтобы увидеть его описание.</p>
             )}
