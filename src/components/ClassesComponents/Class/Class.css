@@ -1,0 +1,24 @@
+.class-info-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .class-info-box h3 {
+    color: #333;
+  }
+  
+  .class-info-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .class-info-box ul li {
+    padding: 5px 0;
+  }
+  
+  .class-info-box b {
+    color: #007bff;
+  }
