@@ -6,14 +6,11 @@ import * as XLSX from "xlsx"; // Библиотека для работы с Exc
 const DndDataUploader = () => {
   const [spellsFile, setSpellsFile] = useState(null);
   const [racesFile, setRacesFile] = useState(null);
+  const [classesFile, setClassesFile] = useState(null);
 
   // Обработчики выбора файлов
-  const handleSpellsFileChange = (event) => {
-    setSpellsFile(event.target.files[0]);
-  };
-
-  const handleRacesFileChange = (event) => {
-    setRacesFile(event.target.files[0]);
+  const handleFileChange = (event, setter) => {
+    setter(event.target.files[0]);
   };
 
   // Парсер Excel в JSON
@@ -82,7 +79,7 @@ const DndDataUploader = () => {
       <h2>Загрузка данных DnD</h2>
       <div>
         <h3>Загрузить заклинания</h3>
-        <input type="file" accept=".xlsx, .xls" onChange={handleSpellsFileChange} />
+        <input type="file" accept=".xlsx, .xls" onChange={(e) => handleFileChange(e, setSpellsFile)} />
         <button onClick={() => uploadData(spellsFile, "spells")} disabled={!spellsFile}>
           Загрузить заклинания в Firestore
         </button>
@@ -90,9 +87,17 @@ const DndDataUploader = () => {
 
       <div>
         <h3>Загрузить расы</h3>
-        <input type="file" accept=".xlsx, .xls" onChange={handleRacesFileChange} />
+        <input type="file" accept=".xlsx, .xls" onChange={(e) => handleFileChange(e, setRacesFile)} />
         <button onClick={() => uploadData(racesFile, "races")} disabled={!racesFile}>
           Загрузить расы в Firestore
+        </button>
+      </div>
+
+      <div>
+        <h3>Загрузить классы</h3>
+        <input type="file" accept=".xlsx, .xls" onChange={(e) => handleFileChange(e, setClassesFile)} />
+        <button onClick={() => uploadData(classesFile, "classes")} disabled={!classesFile}>
+          Загрузить классы в Firestore
         </button>
       </div>
     </div>
