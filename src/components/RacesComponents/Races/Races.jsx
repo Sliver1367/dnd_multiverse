@@ -7,7 +7,12 @@ import aasimarImage from "../../../img/aasimar.jpg";
 import dragonbornImage from "../../../img/dragonborn.png";
 import dwarfImage from "../../../img/dwarf.jpeg";
 import elfImage from "../../../img/elf.png";
-
+import gnomeImage from "../../../img/gnome.png";
+import goliathImage from "../../../img/goliath.png";
+import halflingImage from "../../../img/halfling.png";
+import humanImage from "../../../img/human.jpg";
+import orcImage from "../../../img/orc.png";
+import tieflingImage from "../../../img/tiefling.png";
 
 const Races = () => {
   const [races, setRaces] = useState([]); // Список всех рас
@@ -18,9 +23,13 @@ const Races = () => {
     aasimar: aasimarImage,
     dragonborn: dragonbornImage,
     dwarf: dwarfImage,
-    elf: elfImage
-
-    // можно добавить другие изображения
+    elf: elfImage,
+    gnome: gnomeImage,
+    goliath: goliathImage,
+    halfling: halflingImage,
+    human: humanImage,
+    orc: orcImage,
+    tiefling: tieflingImage,
   };
 
   const raceImageSrc =
