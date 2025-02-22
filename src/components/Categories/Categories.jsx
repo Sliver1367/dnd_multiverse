@@ -65,7 +65,6 @@ const Categories = ({ onCategorySelect }) => {
               ? activeSubcategory
               : category.name}
           </button>
-
           {category.subcategories.length > 0 &&
             activeCategory === category.name && (
               <div className="subcategories">
